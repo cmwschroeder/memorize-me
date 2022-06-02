@@ -1,0 +1,26 @@
+[
+    {
+        "username": "User",
+        "email": "user@email.com",
+        "password": "password",
+        "highscores": []
+    },
+    {
+        "username": "OtherUser",
+        "email": "otheruser@email.com",
+        "password": "password",
+        "highscores": []
+    },
+    {
+        "username": "BestUser",
+        "email": "bestuser@email.com",
+        "password": "password",
+        "highscores": []
+    },
+    {
+        "username": "Someone",
+        "email": "someone@email.com",
+        "password": "password",
+        "highscores": []
+    }
+]
