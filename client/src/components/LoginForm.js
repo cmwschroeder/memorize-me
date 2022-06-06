@@ -65,7 +65,7 @@ function LoginForm({ switchForm }) {
     //this function will run on submit, takes in input and makes sure they are correct, sends them to server in a fetch request
     //gets back a token if the user was able to log in and saves to local storage
     //or if the user wasn't logged in then we will tell the user
-    const handleFormSubmit = function () {
+    const handleFormSubmit = async function () {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
@@ -81,7 +81,24 @@ function LoginForm({ switchForm }) {
                 document.getElementById('error').classList.add('modal-open');
             }
             else {
-
+                try {
+                    const response = await fetch('/api/users/login', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({email: email, password: password})
+                    });
+                    const { token, user } = await response.json();
+                    console.log(user);
+                    localStorage.setItem('id_token', token);
+                    window.location.assign('/');
+                }
+                catch (err) {
+                    console.log(err);
+                    setModalText("Login failed, check email or password");
+                    document.getElementById('error').classList.add('modal-open');
+                }
             }
         }
         else {
@@ -132,7 +149,7 @@ function LoginForm({ switchForm }) {
 
             <div className="modal modal-bottom sm:modal-middle" id="error">
                 <div className="modal-box">
-                    <h3 className="font-bold text-3xl text-red-600">Error!</h3>
+                    <h3 className="font-bold text-3xl text-error">Error!</h3>
                     <p className="py-4" id="error-text">{modalText}</p>
                     <div className="modal-action">
                         <label htmlFor="my-modal-6" className="btn btn-accent w-1/3" onClick={() => closeModal()}>Close</label>

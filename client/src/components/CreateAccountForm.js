@@ -159,7 +159,7 @@ function CreateAccountForm({ switchForm }) {
 
             <div className="modal modal-bottom sm:modal-middle" id="error">
                 <div className="modal-box">
-                    <h3 className="font-bold text-3xl text-red-600">Error!</h3>
+                    <h3 className="font-bold text-3xl text-error">Error!</h3>
                     <p className="py-4" id="error-text">{modalText}</p>
                     <div className="modal-action">
                         <label htmlFor="my-modal-6" className="btn btn-accent w-1/3" onClick={() => closeModal()}>Close</label>
