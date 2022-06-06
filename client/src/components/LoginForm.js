@@ -89,14 +89,24 @@ function LoginForm({ switchForm }) {
                         },
                         body: JSON.stringify({email: email, password: password})
                     });
-                    const { token, user } = await response.json();
-                    console.log(user);
-                    localStorage.setItem('id_token', token);
-                    window.location.assign('/');
+                    if(response.status === 400) {
+                        setModalText("Login failed: incorrect password");
+                        document.getElementById('error').classList.add('modal-open');
+                    }
+                    else if(response.status === 404) {
+                        setModalText("Login failed: No user found with that email");
+                        document.getElementById('error').classList.add('modal-open');
+                    }
+                    else if(response.status === 200 ) {
+                        const { token, user } = await response.json();
+                        console.log(user);
+                        localStorage.setItem('id_token', token);
+                        window.location.assign('/');
+                    }
                 }
                 catch (err) {
                     console.log(err);
-                    setModalText("Login failed, check email or password");
+                    setModalText("Login failed");
                     document.getElementById('error').classList.add('modal-open');
                 }
             }

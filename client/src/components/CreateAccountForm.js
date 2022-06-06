@@ -76,7 +76,7 @@ function CreateAccountForm({ switchForm }) {
     }
 
     //This function will handle creating a user with the inputs in the input fields.
-    const handleFormSubmit = () => {
+    const handleFormSubmit = async () => {
         //get all the values in the field
         const username = document.getElementById('create-username').value;
         const email = document.getElementById('create-email').value;
@@ -97,7 +97,26 @@ function CreateAccountForm({ switchForm }) {
                 document.getElementById('error').classList.add('modal-open');
             }
             else {
-
+                try {
+                    const response = await fetch('/api/users/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username: username, email: email, password: password })
+                    });
+                    if (response.status === 200) {
+                        const { token, user } = await response.json();
+                        console.log(user);
+                        localStorage.setItem('id_token', token);
+                        window.location.assign('/');
+                    }
+                }
+                catch (err) {
+                    console.log(err);
+                    setModalText("Create Account failed");
+                    document.getElementById('error').classList.add('modal-open');
+                }
             }
 
         }
