@@ -11,18 +11,18 @@ function NavBar() {
                         </svg>
                     </label>
                     <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a href="/Games" className="text-primary">Games</a></li>
-                        <li><a href="/Profile" className="text-secondary">Profile</a></li>
-                        <li><a href="/Login" className="text-primary">Login</a></li>
+                        <li><a href="/games" className="text-primary">Games</a></li>
+                        <li><a href="/profile" className="text-secondary">Profile</a></li>
+                        <li><a href="/login" className="text-primary">Login</a></li>
                     </ul>
                 </div>
                 <a href="/" className="btn btn-ghost normal-case text-xl text-secondary">Home</a>
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
-                    <li><a href="/Games" className="text-primary">Games</a></li>
-                    <li><a href="/Profile" className="text-secondary">Profile</a></li>
-                    <li><a href="/Login" className="text-primary">Login</a></li>
+                    <li><a href="/games" className="text-primary">Games</a></li>
+                    <li><a href="/profile" className="text-secondary">Profile</a></li>
+                    <li><a href="/login" className="text-primary">Login</a></li>
                 </ul>
             </div>
         </div>
