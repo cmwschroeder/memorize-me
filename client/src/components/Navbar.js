@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Auth from '../utils/Auth';
+
 function NavBar() {
     return (
         <div className="navbar bg-base-100">
@@ -13,7 +15,9 @@ function NavBar() {
                     <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a href="/games" className="text-primary">Games</a></li>
                         <li><a href="/profile" className="text-secondary">Profile</a></li>
-                        <li><a href="/login" className="text-primary">Login</a></li>
+                        {!Auth.loggedIn() 
+                            ? (<li><a href="/login" className="text-primary">Login</a></li>)
+                            : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}
                     </ul>
                 </div>
                 <a href="/" className="btn btn-ghost normal-case text-xl text-secondary">Home</a>
@@ -22,7 +26,9 @@ function NavBar() {
                 <ul className="menu menu-horizontal p-0">
                     <li><a href="/games" className="text-primary">Games</a></li>
                     <li><a href="/profile" className="text-secondary">Profile</a></li>
-                    <li><a href="/login" className="text-primary">Login</a></li>
+                    {!Auth.loggedIn() 
+                            ? (<li><a href="/login" className="text-primary">Login</a></li>)
+                            : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}
                 </ul>
             </div>
         </div>
