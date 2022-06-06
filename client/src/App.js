@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 
 import Games from './pages/Games';
-import FlipGame from './pages/FlipGame;
+import FlipGame from './pages/FlipGame';
 import Login from './pages/Login';
 
 
