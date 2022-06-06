@@ -16,7 +16,7 @@ function Login() {
     }
 
     return (
-        <div className="bg-base-200 min-h-screen">
+        <div>
             {renderForm()}
         </div>
     )
