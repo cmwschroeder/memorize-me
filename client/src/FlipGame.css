@@ -1,0 +1,25 @@
+.app {
+    background-color: blueviolet;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card {
+    display: inline-block;
+    margin: 5px;
+    height: calc(200px - 10px);
+    width: calc(250px - 10px);
+    cursor: pointer;
+  }
+  
+  .card:hover {
+    transform: scale(0.98);
+  }
+  
+  .card-image {
+    height: calc(200px - 10px);
+    width: calc(250px - 10px);
+  }

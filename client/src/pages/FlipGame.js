@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
-import '../App.css';
+import '../FlipGame.css';
 import { images } from './import.js';
 
 function FlipGame() {
