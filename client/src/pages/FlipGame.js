@@ -6,6 +6,7 @@ import { images } from '../images/import';
 function FlipGame() {
 
     //Manage Cards and Initial Input
+
     // For each Image, generate a Card 
     const [cards, setCards] = useState([]);
 
@@ -15,9 +16,20 @@ function FlipGame() {
 
     // Contain the cards that need to return to their original position since they didnt match when clicked (backface)
     const [unflippedCards, setUnflippedCards] = useState([]);
+
     // Contain the cards that need to be disable since they have been match to another card. 
     const [disabledCards, setDisabledCards] = useState([]);
 
+    // Tracks the information of how many Clicks and Matches the user has made.
+    const [clicks, setClicks] = useState(0);
+    const [match, setMatch] = useState(1)
+
+    // Executes a message when the user matches all the avialable images. Finish the game. 
+    const [won, setWon] = useState(false);
+
+    // Create Timer
+    const [time, setTime] = React.useState(0);
+    const [timerOn, setTimerOn] = React.useState(false);
 
     // Algorithm that randomize the images position when starting Game. 
     // Randomize array in-place using Durstenfeld shuffle algorithm extracted from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
@@ -29,6 +41,7 @@ function FlipGame() {
             array[j] = temp;
         }
     }
+
     // Allows me to execute an effect after the FlipGame.js is renderize.
     //Randomize Image position
     useEffect(() => {
@@ -67,18 +80,36 @@ function FlipGame() {
             // If a match exists, disable those cards; if they dont match,  flipped them to their original position. 
             match ? disableCards() : unflipCards();
         }
+
+    }
+
+    //Function That Resets Game
+    function resetGame() {
+        window.location.reload();
     }
 
     // Disable those cards that has been match and reset the cards
     const disableCards = () => {
         setDisabledCards([firstCard.number, secondCard.number]);
         resetCards();
+        // If a disable cards is executed, that means that found a Match.
+        // setMatch tracks the value of the images matched
+        setMatch(match + 1)
+        // Since we map the same image twice, match needs to be multiplied by 2.
+        // If match equals cards.lenght, finish the game an execute setWon
+        if (match * 2 === cards.length) {
+            // setWon tracks the value of the Won getter, which executes a <div> on the return and stops the game. 
+            setWon(true);
+            setTimerOn(false)
+        }
     };
 
     // If first and Second Cards didnt match, return to original position and reset cards
     const unflipCards = () => {
         setUnflippedCards([firstCard.number, secondCard.number]);
         resetCards();
+        setClicks(clicks + 1)
+
     };
 
     // Set the first card and Second Card to empty objects to compare other images (return to initial input after any xyz event)
@@ -87,30 +118,61 @@ function FlipGame() {
         setSecondCard({});
     }
 
+    React.useEffect(() => {
+        let interval = null;
+
+        if (timerOn) {
+            interval = setInterval(() => {
+                setTime((prevTime) => prevTime + 10);
+            }, 10);
+        } else if (!timerOn) {
+            clearInterval(interval);
+        }
+
+        return () => clearInterval(interval);
+    }, [timerOn]);
+
     return (
-        <div className='app'>
-            <div className='grid grid-cols-4 gap-4' >
-                {
-                    // For each one of the cards getter  const [cards, setCards] = useState([]); Generate a card.
-                    // Component Card acepts Props. 
-                    cards.map((card, index) => (
-                        <Card
-                            // Name being the card.icon, number being the positions, frontface being the specific Card to Match.
-                            // FlipCard and unFlippedCards events to generate animations. 
-                            // disableCards event to prevent card  animation onClicked when already being matched with the correct Image.
-                            // unflippedCard event that contain those cards that need to return to original position if thet dont match.
-                            // disableCard event that avoids interacting with cards that have been match with other card.
-                            name={card.icon}
-                            number={index}
-                            frontFace={card.src}
-                            flipCard={flipCard}
-                            unflippedCards={unflippedCards}
-                            disabledCards={disabledCards}
-                        />
-                    ))
-                }
+        <>
+            <div className='grid place-items-center'>
+                <p className='text-2xl' >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></p>
             </div>
-        </div>
+            <div className='app' >
+                <div className='grid grid-cols-4 gap-4 ' onClick={() => setTimerOn(true)} >
+                    <button className="bg-red-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >Clicks: {clicks}</button>
+                    <button className="bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Matched Pairs: {match - 1}</button>
+                    <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                        onClick={resetGame}>Play Again!</button>
+                    <div>
+                        {/* If the user finishes the game, execute this... */}
+                        {won && (
+                            <button className="bg-yellow-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">You Won! Congrats!</button>
+                        )}
+                    </div>
+                    {
+                        // For each one of the cards getter  const [cards, setCards] = useState([]); Generate a card.
+                        // Component Card acepts Props. 
+                        cards.map((card, index) => (
+                            <Card key={index}
+                                // Name being the card.icon, number being the positions, frontface being the specific Card to Match.
+                                // FlipCard and unFlippedCards events to generate animations. 
+                                // disableCards event to prevent card  animation onClicked when already being matched with the correct Image.
+                                // unflippedCard event contain those cards that need to return to original position if they dont match.
+                                // disableCard event avoids interacting with cards that have been match with other card.
+                                name={card.icon}
+                                number={index}
+                                frontFace={card.src}
+                                flipCard={flipCard}
+                                unflippedCards={unflippedCards}
+                                disabledCards={disabledCards}
+                            />
+                        ))
+                    }
+
+                </div>
+            </div>
+        </>
+
     );
 }
 
