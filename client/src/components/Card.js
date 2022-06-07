@@ -5,7 +5,7 @@ import ReactCardFlip from 'react-card-flip';
 import backFace from '../images/flipcards/questionmark.jpg'
 
 // Card execute my props from Parent component to Child Component
-const Card = ({ name, number, frontFace, flipCard, unflippedCards, disabledCards }) => {
+const Card = ({ name, number, frontFace, flipCard, unflippedCards, disabledCards, }) => {
     // UseState Manage if the card is flipped or not. Initial state being false (unFlipped)
     const [isFlipped, setIsFlipped] = useState(false);
     // Check events when clicked, In this case we would like to disable the cards if they match.  
@@ -17,6 +17,12 @@ const Card = ({ name, number, frontFace, flipCard, unflippedCards, disabledCards
             setTimeout(() => setIsFlipped(false), 700);
         }
     }, [unflippedCards])
+
+    // useEffect(() => {
+    //     if (isFlipped.includes(number)) {
+    //         setTimeout(() => setIsFlipped(false), 700);
+    //     }
+    // }, [setIsFlipped])
 
     //  Execute the disableCards and return setHasEvent(false) to prevent the card for flipping again when matched. 
     useEffect(() => {
@@ -34,18 +40,19 @@ const Card = ({ name, number, frontFace, flipCard, unflippedCards, disabledCards
         if (value !== 0) {
             setIsFlipped(!isFlipped);
         }
+
     }
 
     return (
-        <div className='card' >
+        <div className='cardFlip' >
             {/* The animation itself will be controlled by the property isFlipped. Use this to control whether to show the front or the back of the card. */}
-            <ReactCardFlip isFlipped={isFlipped} >
+            <ReactCardFlip isFlipped={isFlipped}>
                 {/* First position of the card being the backface of the image */}
                 <img className='card-image' src={backFace} alt='back-face' onClick={hasEvent ? handleClick : null} />
                 {/* Second position of the card (onClick) being the image to match  */}
                 <img className='card-image' src={frontFace} alt='front-face' onClick={hasEvent ? handleClick : null} />
             </ReactCardFlip>
-        </div>
+        </div >
     )
 }
 
