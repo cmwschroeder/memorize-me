@@ -12,13 +12,38 @@ export default function header(props) {
 };
 // set difficulty (easy, medium, hard)
     // export default function 
-    // cosnt use context in respect to app context
+export default function difficulty(props){
+     // cosnt use context in respect to app context
+     const value = useContext(App);
     // return html code: 
+    return (
         // direction tag
+        <div>
+            <h6>Choose a difficulty</h6>
+            <li>
+                <li><button onClick={() => generateRandomNum("easy")}></button></li>
+                <li><button onClick={() => generateRandomNum("medium")}></button></li>
+                <li><button onClick={() => generateRandomNum("difficult")}></button></li>
+            </li>
+        </div>
         // list of options for easy medium or hard
         // make them buttons
+  
+    );
+  
+}
 
 // create a function that ranomdizes numbers to be displayed
+export default function generateRandomNum(props) {
+    const value = useContext(App);
+    Math.floor(Math.random() * 100) + 1;
+    return (
+        <div>
+            <h7>Submit your annswer</h7>
+        </div>
+    )
+
+}
     // add a timer that will make the number disapper after a certain amount of time
     // add text box for answer submissom
 
