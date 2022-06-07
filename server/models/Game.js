@@ -6,6 +6,21 @@ const gameSchema = new Schema({
         required: true,
         unique: true,
     },
+    description: {
+        type: String,
+    },
+    instructions: {
+        type: String,
+    },
+    image: {
+        type: String,
+    },
+    preview: {
+        type: String,
+    },
+    link: {
+        type: String,
+    },
     highscores: [{
         type: Schema.Types.ObjectId,
         ref: 'Highscore'
