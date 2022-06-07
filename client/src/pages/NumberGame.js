@@ -36,12 +36,18 @@ export default function difficulty(props){
 // create a function that ranomdizes numbers to be displayed
 export default function generateRandomNum(props) {
     const value = useContext(App);
+    let {submitAnswer, typedAnswer, setTypedNum,} = value;
     Math.floor(Math.random() * 100) + 1;
     return (
         <div>
-            <h7>Submit your annswer</h7>
+            <h7>Submit your answer</h7> 
+            <form onSubmit={submitAnswer}>
+                <textarea placeholder="type answer here" onChange={(n) => setTypedNum(n.target.value)} value ={typedAnswer}></textarea>
+                <button type="submit">Submit answer</button>
+            </form>
         </div>
-    )
+       
+    );
 
 }
     // add a timer that will make the number disapper after a certain amount of time
