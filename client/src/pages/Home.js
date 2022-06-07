@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Home() {
-    return (
-        <div className="bg-base-200 min-h-screen">
-            <p>This is the home page</p>
-        </div>
-    )
+
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
+        const getGames = async () => {
+            const response = await fetch('/api/game', {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+            });
+            const gameList = await response.json();
+            setGames(gameList);
+        };
+        getGames();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if(games.length === 0) {
+        return (
+            <p>This is the homepage</p>
+        )
+    }
+    else {
+        return (
+            <p>This isn't the homepage</p>
+        )
+    }
 }
 
 export default Home; 
