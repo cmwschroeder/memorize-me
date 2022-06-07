@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import '../FlipGame.css';
 import { images } from '../images/import';
-
+import { Howl } from 'howler'
+import bestsongever from '../assets/bestsongever.mp3'
 function FlipGame() {
 
     //Manage Cards and Initial Input
-
+    const sound = new Howl({
+        src: [bestsongever],
+        html5: true,
+        preload: true,
+    })
     // For each Image, generate a Card 
     const [cards, setCards] = useState([]);
 
@@ -28,9 +33,10 @@ function FlipGame() {
     const [won, setWon] = useState(false);
 
     // Create Timer
-    const [time, setTime] = React.useState(0);
-    const [timerOn, setTimerOn] = React.useState(false);
+    const [time, setTime] = useState(0);
+    const [timerOn, setTimerOn] = useState(false);
 
+    const [highscore, setHighScore] = useState(1200)
     // Algorithm that randomize the images position when starting Game. 
     // Randomize array in-place using Durstenfeld shuffle algorithm extracted from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     const shuffleArray = (array) => {
@@ -100,6 +106,7 @@ function FlipGame() {
         if (match * 2 === cards.length) {
             // setWon tracks the value of the Won getter, which executes a <div> on the return and stops the game. 
             setWon(true);
+            setHighScore(highscore + 10)
             setTimerOn(false)
         }
     };
@@ -109,7 +116,7 @@ function FlipGame() {
         setUnflippedCards([firstCard.number, secondCard.number]);
         resetCards();
         setClicks(clicks + 1)
-
+        setHighScore(highscore - 20)
     };
 
     // Set the first card and Second Card to empty objects to compare other images (return to initial input after any xyz event)
@@ -118,9 +125,8 @@ function FlipGame() {
         setSecondCard({});
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         let interval = null;
-
         if (timerOn) {
             interval = setInterval(() => {
                 setTime((prevTime) => prevTime + 10);
@@ -132,23 +138,37 @@ function FlipGame() {
         return () => clearInterval(interval);
     }, [timerOn]);
 
+    // setHighScore = () => {
+
+    // }
     return (
         <>
+            <button className="btn-xs btn-error btn btn-outline " onClick={() => sound.play()}>Don't Click Me</button>
             <div className='grid place-items-center'>
-                <p className='text-2xl' >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></p>
+                <br />
+                <br />
+                {/* If the user finishes the game, execute this... */}
+                {won && (
+                    <div className=' grid place-items-center text-xl'>
+                        <button className="bg-yellow-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"> It took you {clicks} Clicks! and {time / 1000} seconds!</button>
+                        <br />
+                        <button className="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Score: {highscore}</button>
+                        <br />
+                        <div className='grid grid-cols-2 gap-4 '>
+                            <button className="bg-red-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                                onClick={resetGame}>Play Again!</button>
+                            <button className="bg-pink-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                                onClick={resetGame}>Save Score</button>
+                        </div>
+                    </div>
+                )}
             </div>
             <div className='app' >
-                <div className='grid grid-cols-4 gap-4 ' onClick={() => setTimerOn(true)} >
+                <div className='grid grid-cols-4 gap-2 ' onClick={() => setTimerOn(true)} >
                     <button className="bg-red-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >Clicks: {clicks}</button>
-                    <button className="bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Matched Pairs: {match - 1}</button>
-                    <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                        onClick={resetGame}>Play Again!</button>
-                    <div>
-                        {/* If the user finishes the game, execute this... */}
-                        {won && (
-                            <button className="bg-yellow-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">You Won! Congrats!</button>
-                        )}
-                    </div>
+                    <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Matched Pairs: {match - 1} / 6</button>
+                    <button className="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
+                    <button className='bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded' onClick={resetGame}>Play Again!</button>
                     {
                         // For each one of the cards getter  const [cards, setCards] = useState([]); Generate a card.
                         // Component Card acepts Props. 
