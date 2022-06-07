@@ -13,17 +13,6 @@ db.once('open', async () => {
 
       await Game.create(gameSeeds);
 
-      const user = await User.findOne({ username: "User" });
-      const game = await Game.findOne({ title: "Number Game"});
-
-      const highScore = {
-          score: 7,
-          user: user._id,
-          game: game._id
-      }
-      
-      await Highscore.collection.insertOne(highScore);
-
     } catch (err) {
       console.error(err);
       process.exit(1);

@@ -1,6 +1,6 @@
 [
     {
-        "title": "Old Or New Game",
+        "title": "Old Or New",
         "description": "Remember the words as they come, declare words old or new based on if you have seen them or not.",
         "instructions": "When a word is shown click the new button if you haven't seen the word before, or old if you have.",
         "image": "old-or-new.png",
@@ -9,11 +9,12 @@
         "highscores": []
     },
     {
-        "title": "Number Game",
-        "highscores": []
-    },
-    {
-        "title": "Word Game",
+        "title": "Match Cards",
+        "description": "Test your speed and memorization by playing this card matching game.",
+        "instructions": "Click on the cards to flip. Click once to show a card, the second click must be on the matching card to complete the set.",
+        "image": "matching.png",
+        "preview": "matching.gif",
+        "link": "games/game1",
         "highscores": []
     }
 ]
