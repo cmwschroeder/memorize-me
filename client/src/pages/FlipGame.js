@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import '../FlipGame.css';
 import { images } from '../images/import';
-
+import { Howl } from 'howler'
+import bestsongever from '../assets/bestsongever.mp3'
 function FlipGame() {
 
     //Manage Cards and Initial Input
-
+    const sound = new Howl({
+        src: [bestsongever],
+        html5: true,
+        preload: true,
+    })
     // For each Image, generate a Card 
     const [cards, setCards] = useState([]);
 
@@ -138,9 +143,11 @@ function FlipGame() {
     // }
     return (
         <>
+            <button className="btn-xs btn-error btn btn-outline " onClick={() => sound.play()}>Don't Click Me</button>
             <div className='grid place-items-center'>
                 <br />
                 <br />
+                {/* If the user finishes the game, execute this... */}
                 {won && (
                     <div className=' grid place-items-center text-xl'>
                         <button className="bg-yellow-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"> It took you {clicks} Clicks! and {time / 1000} seconds!</button>
@@ -157,14 +164,11 @@ function FlipGame() {
                 )}
             </div>
             <div className='app' >
-                <div className='grid grid-cols-4 gap-4 ' onClick={() => setTimerOn(true)} >
+                <div className='grid grid-cols-4 gap-2 ' onClick={() => setTimerOn(true)} >
                     <button className="bg-red-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >Clicks: {clicks}</button>
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Matched Pairs: {match - 1} / 6</button>
                     <button className="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
-                    <div>
-                        {/* If the user finishes the game, execute this... */}
-
-                    </div>
+                    <button className='bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded' onClick={resetGame}>Play Again!</button>
                     {
                         // For each one of the cards getter  const [cards, setCards] = useState([]); Generate a card.
                         // Component Card acepts Props. 
