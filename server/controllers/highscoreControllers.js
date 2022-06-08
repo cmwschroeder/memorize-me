@@ -2,29 +2,29 @@ const { Highscore, Game, User } = require('../models');
 
 module.exports = {
 
-    createHighScore(req, res) {
-        Highscore.create(req.body)
-            .then(({ _id }) => {
-                return User.findOneAndUpdate(
-                    { _id: req.params.userId },
-                    { $push: { highscores: _id } },
-                    { new: true });
-            })
-            .then(scoreData => {
-                if (!scoreData) {
-                    res.status(404).json({ message: 'Something wrong happened :(' });
-                    return;
-                }
-                res.json(scoreData)
-            })
-            .catch(err => res.json(err));
+    async createHighScore(req, res) {
+        try {
+            const highscoreData = await Highscore.create(req.body);
+
+            await User.findOneAndUpdate(
+                { username: req.body.username },
+                { $push: { highscores: highscoreData._id } },
+                { new: true });
+            await Game.findOneAndUpdate(
+                { title: req.body.game },
+                { $push: { highscores: highscoreData._id } },
+                { new: true });
+            res.json("Highscore added");
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).json({ message: "Something went wrong" });
+        }
     },
 
 
     getHighScores(req, res) {
         Highscore.find({})
-            .populate({ path: 'user', select: '-__v' })
-            .populate({ path: 'game', select: '-__v' })
             .select('-__v')
             .then(scoreData => res.json(scoreData))
             .catch(err => {
@@ -36,8 +36,6 @@ module.exports = {
 
     getOneHighScore(req, res) {
         Highscore.findOne({ _id: req.params.id })
-            .populate({ path: 'user', select: '-__v' })
-            .populate({ path: 'game', select: '-__v' })
             .select('-__v')
             .then(scoreData => {
                 if (!scoreData) {
@@ -57,8 +55,6 @@ module.exports = {
             { _id: req.params.id },
             req.body,
             { new: true, runValidators: true })
-            .populate({ path: 'user', select: '-__v' })
-            .populate({ path: 'game', select: '-__v' })
             .select('-___v')
             .then(scoreData => {
                 if (!scoreData) {
