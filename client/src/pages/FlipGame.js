@@ -143,7 +143,7 @@ function FlipGame() {
     // }
     return (
         <>
-            <button className="btn-xs btn-error btn btn-outline " onClick={() => sound.play()}>Don't Click Me</button>
+            <h1 class="text-5xl font-bold myscores">Memorize.Me</h1>
             <div className='grid place-items-center'>
                 <br />
                 <br />
@@ -163,12 +163,13 @@ function FlipGame() {
                     </div>
                 )}
             </div>
+            <button className="btn-xs btn-error btn btn-outline " onClick={() => sound.play()}>Don't Click Me</button>
             <div className='app' >
                 <div className='grid grid-cols-4 gap-2 ' onClick={() => setTimerOn(true)} >
-                    <button className="bg-red-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >Clicks: {clicks}</button>
-                    <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Matched Pairs: {match - 1} / 6</button>
-                    <button className="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
-                    <button className='bg-green-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded' onClick={resetGame}>Play Again!</button>
+                    <button className="border-2 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Clicks: {clicks}</button>
+                    <button className="border-2 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched Pairs: {match - 1} / 6</button>
+                    <button className="border-2 border-purple-600 rounded-lg px-3 py-2 text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-gray-200">Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
+                    <button className='border-2 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={resetGame}>Reset</button>
                     {
                         // For each one of the cards getter  const [cards, setCards] = useState([]); Generate a card.
                         // Component Card acepts Props. 
