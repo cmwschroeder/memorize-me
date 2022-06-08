@@ -7,7 +7,11 @@ import Games from './pages/Games';
 import FlipGame from './pages/FlipGame';
 import Login from './pages/Login';
 import OldOrNew from './pages/OldOrNew';
+
 import Profile from './pages/Profile'
+import GamePage from './pages/GamePage';
+
+
 
 function App() {
   return (
@@ -21,6 +25,8 @@ function App() {
           <Route exact path='/login' component={Login} />
           <Route exact path='/profile' component={Profile} />
           <Route exact path='/oldornew' component={OldOrNew} />
+          <Route exact path='/game/:gameId' component={GamePage} />
+          <Route exact path='/game/oldornew/:gameId' component={OldOrNew} />
         </Switch>
       </>
     </Router>
