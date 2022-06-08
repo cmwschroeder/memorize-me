@@ -5,13 +5,11 @@ const highscoreSchema = new Schema({
         type: Number,
         required: true,
     },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+    username: {
+        type: String,
     },
     game: {
-        type: Schema.Types.ObjectId,
-        ref: 'Game'
+        type: String,
     }
 });
 
