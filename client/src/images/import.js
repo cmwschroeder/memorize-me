@@ -1,9 +1,9 @@
-import src1 from '../images/flipcards/icon-1.jpg';
-import src2 from '../images/flipcards/icon-2.jpg';
-import src3 from '../images/flipcards/icon-3.jpg';
-import src4 from '../images/flipcards/icon-4.jpg';
-import src5 from '../images/flipcards/icon-5.jpg';
-import src6 from '../images/flipcards/icon-6.jpg';
+import src1 from '../images/flipcards/icon-1.png';
+import src2 from '../images/flipcards/icon-2.png';
+import src3 from '../images/flipcards/icon-3.png';
+import src4 from '../images/flipcards/icon-4.png';
+import src5 from '../images/flipcards/icon-5.png';
+import src6 from '../images/flipcards/icon-6.png';
 
 
 const images = [
