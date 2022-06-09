@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { sortHighscores } from '../utils/Helpers';
 
 function GamePage() {
     const [game, setGame] = useState({});
@@ -21,14 +22,16 @@ function GamePage() {
     }, []);
 
     const renderHighscores = () => {
-        if(game.highscores.lenght !== 0) {
+        if(game.highscores.length !== 0) {
+            const sortedHighscores = sortHighscores(game.highscores);
+            console.log(sortedHighscores);
             return (
-                <p>There are no highscores currently</p>
+                <p>There are highscores currently</p>
             )
         }
         else {
             return (
-                <p>There are highscores currently</p>
+                <p>There are no highscores currently</p>
             )
         }
     }
@@ -40,7 +43,7 @@ function GamePage() {
     }
     else {
         return (
-            <div class="min-h-screen w-full bg-base-200">
+            <div className="min-h-screen w-full bg-base-200">
                 <div className="w-full flex flex-row flex-wrap justify-center">
                     <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                         <div className="flex flex-row justify-around">

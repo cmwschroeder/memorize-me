@@ -109,6 +109,7 @@ function CreateAccountForm({ switchForm }) {
                         const { token, user } = await response.json();
                         console.log(user);
                         localStorage.setItem('id_token', token);
+                        localStorage.setItem('username', user.username);
                         window.location.assign('/');
                     }
                 }

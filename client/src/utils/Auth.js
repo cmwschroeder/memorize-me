@@ -28,6 +28,7 @@ class Auth {
 
     logout() {
         localStorage.removeItem('id_token');
+        localStorage.removeItem('username');
         //return to homepage
         window.location.assign('/');
     }
