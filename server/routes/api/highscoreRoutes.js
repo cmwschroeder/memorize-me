@@ -6,9 +6,11 @@ const {
     getOneHighScore,
     updateHighScore,
     deleteHighScore,
-} = require('../../controllers/highscoreControllers')
+} = require('../../controllers/highscoreControllers');
 
-router.route('/').get(getHighScores).post(createHighScore)
+const { authMiddleware } = require('../../utils/auth');
+
+router.route('/').get(getHighScores).post(authMiddleware, createHighScore);
 router.route('/:id').get(getOneHighScore).put(updateHighScore).delete(deleteHighScore);
 
 module.exports = router;

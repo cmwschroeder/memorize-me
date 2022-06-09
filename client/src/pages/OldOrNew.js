@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import {Howl, Howler} from 'howler';
 import successSound from '../assets/success-sound-effect.mp3';
 import failureSound from '../assets/game-fail-sound-effect.mp3';
+import { addHighscore } from '../utils/Helpers';
 
 function OldOrNew() {
 
@@ -22,6 +23,8 @@ function OldOrNew() {
     const [currNew, setCurrNew] = useState(true);
     const [currWord, setCurrWord] = useState('');
 
+    const [game, setGame] = useState({});
+
     const params = useParams();
 
     const [unusedWords, setUnusedWords] = useState(['Hello', 'Goodbye', 'Computer', 'Programming', 'Javascript', 'Style', 'Sheet', 'Cool', 'Easy', 'Game', 'New', 'Old', 'List', 'Make', 'More', 'Later']);
@@ -30,6 +33,17 @@ function OldOrNew() {
     useEffect(() => {
         const selectWord = Math.floor(Math.random() * unusedWords.length);
         setCurrWord(unusedWords[selectWord]);
+        const getGame = async () => {
+            const response = await fetch('/api/game/' + params.gameId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const gameData = await response.json();
+            setGame(gameData);
+        }
+        getGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -84,8 +98,8 @@ function OldOrNew() {
         }
     }
 
-    const addHighscore = () => {
-        console.log(params);
+    const sendHighscore = () => {
+        addHighscore(game.title, score);
     }
 
     const resetGame = () => {
@@ -109,7 +123,7 @@ function OldOrNew() {
                             <button className="btn btn-primary w-1/3" onClick={() => checkAnswer(true)} id="new-btn">New</button>
                         </div>
                         <div className="flex justify-around">
-                            <button className="btn btn-secondary w-1/3 hidden" id="add-highscore" onClick={() => addHighscore()}>Save Highscore</button>
+                            <button className="btn btn-secondary w-1/3 hidden" id="add-highscore" onClick={() => sendHighscore()}>Save Highscore</button>
                             <button className="btn btn-primary w-1/3 hidden" id="replay-btn" onClick={() => resetGame()}>Play Again</button>
                         </div>
                     </div>

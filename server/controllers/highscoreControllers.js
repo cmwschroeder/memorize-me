@@ -4,10 +4,11 @@ module.exports = {
 
     async createHighScore(req, res) {
         try {
-            const highscoreData = await Highscore.create(req.body);
+            console.log(req.body);
+            const highscoreData = await Highscore.create({score: req.body.score, username: req.user.username, game: req.body.game});
 
             await User.findOneAndUpdate(
-                { username: req.body.username },
+                { username: req.user.username },
                 { $push: { highscores: highscoreData._id } },
                 { new: true });
             await Game.findOneAndUpdate(
