@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Bungee+Shade&family=Train+One&display=swap');
+*{
+}
+
+.gamecards{
+    transition: transform 400ms;
+}
+
+.gamecards:hover{
+    transform: translateY(-3px);
+}
+
+.myscores{
+    color: #bf95f9;
+    font-family: 'Bungee Shade', cursive;
+}
