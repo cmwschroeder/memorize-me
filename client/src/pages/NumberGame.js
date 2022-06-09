@@ -11,26 +11,6 @@ export default function header(props) {
         </div> 
     )
 };
-// set difficulty (easy, medium, hard)
-    // export default function 
-// export default function difficulty(props){
-//      // cosnt use context in respect to app context
-//      const value = useContext(App);
-//     // return html code: 
-//     return (
-//         // direction tag
-//         <div>
-//             <h6>Choose a difficulty</h6>
-//             <li>
-//                 <li><button onClick={() => generateRandomNum("easy")}></button></li>
-//                 <li><button onClick={() => generateRandomNum("medium")}></button></li>
-//                 <li><button onClick={() => generateRandomNum("difficult")}></button></li>
-//             </li>
-//         </div>
-//         // list of options for easy medium or hard
-//         // make them buttons
-  
-//     );
   
 // }
 //  redo code
@@ -55,11 +35,35 @@ export default function NumberGame(props) {
     // 1 digit
     Math.floor(Math.random()* 10) + 1 ;
     // 2 digits
-    Math.floor(Math.random() * 100) + 1;
+    function twoDigits () {
+        var min = 10;
+        var max = 100;
+        return Math.floor(Math.random() * (max - min) ) + min;
+    }
     // 3 digits
+    function threeDigits () {
+        var min = 100;
+        var max = 1000;
+        return Math.floor(Math.random() * (max - min) ) + min;
+    }
     // 4 digits
+    function fourDigits () {
+        var min = 1000;
+        var max = 10000;
+        return Math.floor(Math.random() * (max - min) ) + min;
+    }
     // 5 digits
+    function fiveDigits() {
+        var min = 10000;
+        var max = 100000;
+        return Math.floor(Math.random() * (max - min) ) + min;
+    }
     // 6 digits
+    function sixDigits() {
+        var min = 100000;
+        var max = 1000000;
+        return Math.floor(Math.random() * (max - min) ) + min;
+    }
 
     return (
         <div>
