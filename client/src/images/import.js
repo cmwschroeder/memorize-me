@@ -4,7 +4,9 @@ import src3 from '../images/flipcards/icon-3.png';
 import src4 from '../images/flipcards/icon-4.png';
 import src5 from '../images/flipcards/icon-5.png';
 import src6 from '../images/flipcards/icon-6.png';
-
+import src7 from '../images/flipcards/icon-7.png';
+import src8 from '../images/flipcards/icon-8.png';
+import src9 from '../images/flipcards/icon-9.png';
 
 const images = [
     {
@@ -54,6 +56,31 @@ const images = [
     {
         src: src6,
         icon: 'icon-6',
+    },
+    {
+        src: src7,
+        icon: 'icon-7'
+    },
+    {
+        src: src7,
+        icon: 'icon-7',
+    },
+    {
+        src: src8,
+        icon: 'icon-8',
+    },
+    {
+        src: src8,
+        icon: 'icon-8',
+    },
+
+    {
+        src: src9,
+        icon: 'icon-9',
+    },
+    {
+        src: src9,
+        icon: 'icon-9',
     },
 
 ];
