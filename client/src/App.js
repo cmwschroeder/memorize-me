@@ -21,12 +21,12 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/games' component={Games} />
-          <Route exact path='/games/game1' component={FlipGame} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/profile' component={Profile} />
           <Route exact path='/oldornew' component={OldOrNew} />
           <Route exact path='/game/:gameId' component={GamePage} />
           <Route exact path='/game/oldornew/:gameId' component={OldOrNew} />
+          <Route exact path='/game/matchcards/:gameId' component={FlipGame} />
         </Switch>
       </>
     </Router>
