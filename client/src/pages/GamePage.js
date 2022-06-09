@@ -21,12 +21,40 @@ function GamePage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const getHighscoreList = (sortedHighscores) => {
+        let i = 1;
+        return sortedHighscores.map((highscore) => {
+            return (
+                <tr class="hover">
+                <th>{i++}</th>
+                <td>{highscore.username}</td>
+                <td>{highscore.score}</td>
+            </tr>
+            )
+        });
+    }
+
+
+
     const renderHighscores = () => {
         if(game.highscores.length !== 0) {
             const sortedHighscores = sortHighscores(game.highscores);
             console.log(sortedHighscores);
             return (
-                <p>There are highscores currently</p>
+                <div className="w-full flex justify-center">
+                    <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Username</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { getHighscoreList(sortedHighscores) }
+                    </tbody>
+                </table>
+                </div>
             )
         }
         else {
