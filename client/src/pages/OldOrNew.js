@@ -114,6 +114,7 @@ function OldOrNew() {
     const sendHighscore = () => {
         if (highscoreIndex === -1) {
             addHighscore(game.title, score);
+            document.getElementById('save').classList.add('modal-open');
         } else {
             updateHighscore(highscoreId, score);
             document.getElementById('save').classList.add('modal-open');
