@@ -33,7 +33,7 @@ import React, {useEffect, useState} from "react";
             <form>
                 <p>{randomNumber}</p>
                 <textarea placeholder="type answer here"></textarea>
-                <button type="submit">Submit answer</button>
+                <button type="submit" on onClick={()=> chooseRandomNumber()}>Submit answer</button>
             </form>
         </div>
        
