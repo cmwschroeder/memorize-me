@@ -15,6 +15,16 @@ import React, {useEffect, useState} from "react";
         return number;
     }
     // create a function to check answers
+    const [score , totScore] = useState(0);
+    const answer = (number) => {
+        if (number === randomNumber) {
+            totScore(score + 1);
+        }
+        else {
+            // if incoreect, game over
+            // hide all buttons
+        }
+    }
     // create a function to display new number after submit is clicked
     // useEffect for event listners
     return (
