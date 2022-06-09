@@ -22,6 +22,9 @@ function OldOrNew() {
     const [score, setScore] = useState(0);
     const [currNew, setCurrNew] = useState(true);
     const [currWord, setCurrWord] = useState('');
+    
+    const [highscore, setHighscore] = useState(0);
+    const [highscoreIndex, setHighscoreIndex] = useState(-1);
 
     const [game, setGame] = useState({});
 
@@ -31,6 +34,7 @@ function OldOrNew() {
     const [usedWords, setUsedWords] = useState([]);
 
     useEffect(() => {
+        const username = localStorage.getItem('username');
         const selectWord = Math.floor(Math.random() * unusedWords.length);
         setCurrWord(unusedWords[selectWord]);
         const getGame = async () => {
@@ -42,6 +46,12 @@ function OldOrNew() {
             });
             const gameData = await response.json();
             setGame(gameData);
+            for(let i = 0; i < gameData.highscores.length; i++) {
+                if(gameData.highscores[i].username === username) {
+                    setHighscoreIndex(i);
+                    setHighscore(gameData.highscores[i].score);
+                }
+            }
         }
         getGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -21,14 +21,14 @@ function GamePage() {
     }, []);
 
     const renderHighscores = () => {
-        if(game.highscores.lenght !== 0) {
+        if(game.highscores.length !== 0) {
             return (
-                <p>There are no highscores currently</p>
+                <p>There are highscores currently</p>
             )
         }
         else {
             return (
-                <p>There are highscores currently</p>
+                <p>There are no highscores currently</p>
             )
         }
     }
