@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react';
-
+import { getUser } from '../utils/Helpers';
 function Profile() {
+    const [user, setUser] = useState({});
+    useEffect(() => {
+        const getGame = async () => {
+            try {
+                const res = await getUser();
+                if (!res.ok) {
+                    throw new Error('No User Found')
+                }
+                const userData = await res.json();
+                setUser(userData)
+            } catch (err) {
+                console.log(err)
+            }
+        };
+        getGame()
+    }, [])
     return (
         <>
             <h1 class="text-5xl font-bold flex justify-center m-5 myscores"> My Scores</h1>
@@ -14,6 +30,11 @@ function Profile() {
                             <th></th>
                         </tr>
                     </thead>
+                    {user.map((userD)=> {
+                        return (
+                            
+                        )
+                    })}
                     <tbody>
                         <tr class="hover">
                             <th>1</th>

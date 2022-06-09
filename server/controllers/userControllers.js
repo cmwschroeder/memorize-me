@@ -22,7 +22,7 @@ module.exports = {
             });
     },
     getSingleUser(req, res) {
-        User.findOne({ _id: req.params.id })
+        User.findOne({ _id: req.user._id })
             .populate({ path: 'highscores', select: '-__v' })
             .select('-__v')
             .then((user) =>
