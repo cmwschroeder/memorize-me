@@ -10,3 +10,14 @@ export const addHighscore = async (game, score)=> {
     });
     return await response.json();
 }
+
+export const updateHighscore = async (highscore_id, score) => {
+    const response = await fetch('/api/scores/' + highscore_id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({score})
+    });
+    return await response.json();
+}
