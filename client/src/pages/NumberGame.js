@@ -14,16 +14,17 @@ import React, {useEffect, useState} from "react";
         setRandomNumber(number);
         return number;
     }
+    // create a function to check answers
+    // create a function to display new number after submit is clicked
+    // useEffect for event listners
     return (
         <div>
             <h7>Submit your answer</h7> 
             <form>
+                <p>{randomNumber}</p>
                 <textarea placeholder="type answer here"></textarea>
                 <button type="submit">Submit answer</button>
             </form>
-            <div>
-                <p>{randomNumber}</p>
-            </div>
         </div>
        
     );
@@ -41,37 +42,4 @@ export default NumberGame;
     // create button to save highscore and it will go to high score page
     // create a play again button
 
-        // // create seperate functions for increasing digits
-    // // 1 digit
-    // Math.floor(Math.random()* 10) + 1 ;
-    // // 2 digits
-    // function twoDigits () {
-    //     var min = 10;
-    //     var max = 100;
-    //     return Math.floor(Math.random() * (max - min) ) + min;
-    // }
-    // // 3 digits
-    // function threeDigits () {
-    //     var min = 100;
-    //     var max = 1000;
-    //     return Math.floor(Math.random() * (max - min) ) + min;
-    // }
-    // // 4 digits
-    // function fourDigits () {
-    //     var min = 1000;
-    //     var max = 10000;
-    //     return Math.floor(Math.random() * (max - min) ) + min;
-    // }
-    // // 5 digits
-    // function fiveDigits() {
-    //     var min = 10000;
-    //     var max = 100000;
-    //     return Math.floor(Math.random() * (max - min) ) + min;
-    // }
-    // // 6 digits
-    // function sixDigits() {
-    //     var min = 100000;
-    //     var max = 1000000;
-    //     return Math.floor(Math.random() * (max - min) ) + min;
-    // }
     
