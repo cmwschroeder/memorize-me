@@ -48,9 +48,10 @@ const Card = ({ name, number, frontFace, flipCard, unflippedCards, disabledCards
             {/* The animation itself will be controlled by the property isFlipped. Use this to control whether to show the front or the back of the card. */}
             <ReactCardFlip isFlipped={isFlipped}>
                 {/* First position of the card being the backface of the image */}
-                <img className='card-image rounded-xl' src={backFace} alt='back-face' onClick={hasEvent ? handleClick : null} />
+                <img className='object-cover w-16 md:w-40 lg:w-44 rounded-xl' src={backFace} alt='back-face' onClick={hasEvent ? handleClick : null} />
                 {/* Second position of the card (onClick) being the image to match  */}
-                <img className='card-image rounded-xl' src={frontFace} alt='front-face' onClick={hasEvent ? handleClick : null} />
+                <img className=' object-cover w-16 md:w-40 lg:w-44 rounded-xl' src={frontFace} alt='front-face' onClick={hasEvent ? handleClick : null} />
+
             </ReactCardFlip>
         </div >
     )

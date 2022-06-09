@@ -10,10 +10,16 @@
 }
 
 .gamecards:hover{
-    transform: translateY(-3px);
+    transform: translateY(-5px);
 }
 
 .myscores{
     color: #bf95f9;
     font-family: 'Bungee Shade', cursive;
+}
+.buttonHov{
+    transition: transform 100ms;
+}
+.buttonHov:hover{
+    transform: scale(0.95);
 }
