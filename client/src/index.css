@@ -17,3 +17,9 @@
     color: #bf95f9;
     font-family: 'Bungee Shade', cursive;
 }
+.buttonHov{
+    transition: transform 100ms;
+}
+.buttonHov:hover{
+    transform: scale(0.95);
+}
