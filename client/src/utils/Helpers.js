@@ -37,14 +37,12 @@ export const sortHighscores = (highscores) => {
 }
 
 
-export const getUser = async (game, score) => {
-    const token = localStorage.getItem('id_token');
-    const response = await fetch('/api/user/me/', {
+export const getUser = (token) => {
+    return fetch('/api/users/me', {
         method: 'GET',
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
         },
     });
-    return await response.json();
-}
+};

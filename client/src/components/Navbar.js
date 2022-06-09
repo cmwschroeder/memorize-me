@@ -27,7 +27,7 @@ function NavBar() {
                 <ul className="menu menu-horizontal p-0">
                 {!Auth.loggedIn() 
                             ? (<li><a href="/login" className="text-secondary">Profile</a></li>)
-                            : (<li><a href="/profile" className="text-secondary">Profile</a></li>)}
+                            : (<li><a href="/profile/me" className="text-secondary">Profile</a></li>)}
                     {!Auth.loggedIn() 
                             ? (<li><a href="/login" className="text-primary">Login</a></li>)
                             : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}
