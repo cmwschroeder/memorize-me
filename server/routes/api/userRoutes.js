@@ -9,8 +9,11 @@ const {
     login,
 } = require('../../controllers/userControllers')
 
+
+const { authMiddleware } = require('../../utils/auth');
 router.route('/').get(getUsers).post(createUser);
-router.route('/:id').get(getSingleUser).put(updateUser).delete(deleteUser);
+// router.route('/:id').put(updateUser).delete(deleteUser);
+router.route('/me').get(authMiddleware, getSingleUser)
 router.route('/login').post(login);
 
 module.exports = router;
