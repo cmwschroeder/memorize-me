@@ -13,8 +13,9 @@ function NavBar() {
                         </svg>
                     </label>
                     <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a href="/games" className="text-primary">Games</a></li>
-                        <li><a href="/profile" className="text-secondary">Profile</a></li>
+                        {!Auth.loggedIn() 
+                            ? (<li><a href="/login" className="text-secondary">Profile</a></li>)
+                            : (<li><a href="/profile" className="text-secondary">Profile</a></li>)}
                         {!Auth.loggedIn() 
                             ? (<li><a href="/login" className="text-primary">Login</a></li>)
                             : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}
@@ -24,8 +25,9 @@ function NavBar() {
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
-                    <li><a href="/games" className="text-primary">Games</a></li>
-                    <li><a href="/profile" className="text-secondary">Profile</a></li>
+                {!Auth.loggedIn() 
+                            ? (<li><a href="/login" className="text-secondary">Profile</a></li>)
+                            : (<li><a href="/profile" className="text-secondary">Profile</a></li>)}
                     {!Auth.loggedIn() 
                             ? (<li><a href="/login" className="text-primary">Login</a></li>)
                             : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}

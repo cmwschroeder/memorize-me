@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import {Howl, Howler} from 'howler';
+import { Howl, Howler } from 'howler';
 import successSound from '../assets/success-sound-effect.mp3';
 import failureSound from '../assets/game-fail-sound-effect.mp3';
-import { addHighscore } from '../utils/Helpers';
+import { addHighscore, updateHighscore } from '../utils/Helpers';
 
 function OldOrNew() {
 
@@ -23,6 +23,10 @@ function OldOrNew() {
     const [currNew, setCurrNew] = useState(true);
     const [currWord, setCurrWord] = useState('');
 
+    const [highscore, setHighscore] = useState(0);
+    const [highscoreIndex, setHighscoreIndex] = useState(-1);
+    const [highscoreId, setHighscoreId] = useState();
+
     const [game, setGame] = useState({});
 
     const params = useParams();
@@ -31,6 +35,7 @@ function OldOrNew() {
     const [usedWords, setUsedWords] = useState([]);
 
     useEffect(() => {
+        const username = localStorage.getItem('username');
         const selectWord = Math.floor(Math.random() * unusedWords.length);
         setCurrWord(unusedWords[selectWord]);
         const getGame = async () => {
@@ -42,35 +47,42 @@ function OldOrNew() {
             });
             const gameData = await response.json();
             setGame(gameData);
+            for (let i = 0; i < gameData.highscores.length; i++) {
+                if (gameData.highscores[i].username === username) {
+                    setHighscoreIndex(i);
+                    setHighscore(gameData.highscores[i].score);
+                    setHighscoreId(gameData.highscores[i]._id);
+                }
+            };
         }
         getGame();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const checkAnswer = (isNew) => {
         let currUnusedWords, currUsedWords;
-        if((isNew && currNew) || (!isNew && !currNew) ) {
+        if ((isNew && currNew) || (!isNew && !currNew)) {
             setScore(score + 1);
             correctSound.play();
-            if(currNew) {
-                setUsedWords([ ...usedWords, currWord]);
+            if (currNew) {
+                setUsedWords([...usedWords, currWord]);
                 setUnusedWords(unusedWords.filter((word) => word === currWord ? false : true));
                 currUnusedWords = unusedWords.filter((word) => word === currWord ? false : true);
-                currUsedWords = [ ...usedWords, currWord];
+                currUsedWords = [...usedWords, currWord];
             }
             else {
                 currUnusedWords = [...unusedWords];
                 currUsedWords = [...usedWords];
             }
             var selectType = Math.floor(Math.random() * 2);
-            if(score > 5) {
+            if (score > 5) {
                 selectType = Math.floor(Math.random() * 2);
             }
             else {
                 selectType = Math.floor(Math.random() * 3);
             }
-            if(unusedWords.length !== 0) {
-                if(selectType === 1 || selectType === 2) {
+            if (unusedWords.length !== 0) {
+                if (selectType === 1 || selectType === 2) {
                     const selectWord = Math.floor(Math.random() * currUnusedWords.length);
                     setCurrNew(true);
                     setCurrWord(currUnusedWords[selectWord]);
@@ -93,16 +105,28 @@ function OldOrNew() {
             document.getElementById('new-btn').classList.add('hidden');
             document.getElementById('game-over').classList.remove('hidden');
             document.getElementById('end-score').classList.remove('hidden');
+            document.getElementById('curr-highscore').classList.remove('hidden');
             document.getElementById('replay-btn').classList.remove('hidden');
             document.getElementById('add-highscore').classList.remove('hidden');
         }
     }
 
     const sendHighscore = () => {
-        addHighscore(game.title, score);
+        if (highscoreIndex === -1) {
+            addHighscore(game.title, score);
+            document.getElementById('save').classList.add('modal-open');
+        } else {
+            updateHighscore(highscoreId, score);
+            document.getElementById('save').classList.add('modal-open');
+        }
     }
 
     const resetGame = () => {
+        window.location.reload();
+    }
+
+    //handles closing the modal that has been opened for an error
+    const closeModal = function () {
         window.location.reload();
     }
 
@@ -118,6 +142,7 @@ function OldOrNew() {
                         <p className="text-3xl text-secondary my-20" id="currWord">{score + 1}: {currWord}</p>
                         <p className="text-3xl text-secondary my-20 hidden" id="game-over">Game Over</p>
                         <p className="text-3xl text-secondary mb-10 hidden" id="end-score">Your score was: {score}</p>
+                        <p className="text-3xl text-secondary mb-10 hidden" id="curr-highscore">Your current highscore is: {highscore}</p>
                         <div className="flex justify-around">
                             <button className="btn btn-secondary w-1/3" onClick={() => checkAnswer(false)} id="old-btn">Old</button>
                             <button className="btn btn-primary w-1/3" onClick={() => checkAnswer(true)} id="new-btn">New</button>
@@ -126,6 +151,16 @@ function OldOrNew() {
                             <button className="btn btn-secondary w-1/3 hidden" id="add-highscore" onClick={() => sendHighscore()}>Save Highscore</button>
                             <button className="btn btn-primary w-1/3 hidden" id="replay-btn" onClick={() => resetGame()}>Play Again</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal modal-bottom sm:modal-middle" id="save">
+                <div className="modal-box">
+                    <h3 className="font-bold text-3xl text-secondary">Save</h3>
+                    <p className="py-4" id="error-text">Highscore saved, your new highscore is: {score}</p>
+                    <div className="modal-action">
+                        <label htmlFor="my-modal-6" className="btn btn-accent w-1/3" onClick={() => closeModal()}>Close</label>
                     </div>
                 </div>
             </div>

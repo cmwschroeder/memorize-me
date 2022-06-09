@@ -7,7 +7,7 @@ module.exports = {
         User.create(req.body)
             .then((dbUserData) => {
                 const token = signToken(dbUserData);
-                res.json({ token, dbUserData });
+                res.json({ token, user: dbUserData });
             })
             .catch((err) => res.status(500).json(err));
     },
