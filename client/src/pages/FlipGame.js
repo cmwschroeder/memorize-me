@@ -7,6 +7,7 @@ import { Howl } from 'howler'
 import background from '../assets/background.mp3'
 import wrong from '../assets/wrong.mp3'
 import correct from '../assets/correct.mp3'
+import gameover from '../assets/gameover.mp3'
 
 import { addHighscore, updateHighscore } from '../utils/Helpers';
 
@@ -25,11 +26,11 @@ const wrongsound = new Howl({
     html5: true,
     preload: true,
 })
-// const gameoversound = new Howl({
-//     src: [omgw],
-//     html5: true,
-//     preload: true,
-// })
+const gameoversound = new Howl({
+    src: [gameover],
+    html5: true,
+    preload: true,
+})
 
 function FlipGame() {
     //Manage Cards and Initial Input
@@ -162,7 +163,7 @@ function FlipGame() {
             // setWon tracks the value of the Won getter, which executes a <div> on the return and stops the game. 
             setWon(true);
             setTimerOn(false)
-            // gameoversound.play()
+            gameoversound.play()
             sound.stop()
         }
     };
@@ -194,7 +195,6 @@ function FlipGame() {
         } else if (!timerOn) {
             clearInterval(interval);
         }
-
         return () => clearInterval(interval);
     }, [timerOn]);
 
