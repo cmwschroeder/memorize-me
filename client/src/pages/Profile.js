@@ -61,7 +61,7 @@ function Profile() {
         })
     };
     if (!userDataLength) {
-        return <h2>LOADING...{userData.savedBooks}</h2>;
+        return <button class="btn btn-3xl loading">Loading</button>
     }
 
     console.log(userData)
