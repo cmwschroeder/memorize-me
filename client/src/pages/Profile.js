@@ -50,7 +50,7 @@ function Profile() {
     // console.log(games)
 
     const handleDeleteScore = async (_id) => {
-        fetch(`http://localhost:3000/api/scores/${_id}`, {
+        fetch(`/api/scores/${_id}`, {
             method: 'DELETE'
         }).then((result) => {
             result.json().then((res) => {
