@@ -240,10 +240,14 @@ function FlipGame() {
                     </div>
                 </div>
                 <div>
-                    <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
-                    <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched: {match - 1} / 9</button>
-                    <button className=" btn-xs sm:btn-sm md:btn-md lg:btn-lg btn btn-link border-2 mx-2.5 border-purple-600 rounded-lg px-6 py-2 text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-gray-200" >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
-                    <button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={resetGame}>Reset</button>
+                    <div clasName='grid grid-cols-6 gap-1'>
+                        <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
+                        <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched: {match - 1} / 9</button>
+                        <p className=" btn btn-wide sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-purple-600 rounded-lg text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-purple-200" >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span text-2xl>{("0" + ((time / 10) % 100)).slice(-2)}</span></p>
+                        <button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={resetGame}>Reset</button>
+                        <p className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-circle mx-2.5' onClick={() => sound.play()}>&#9654;</p>
+                        <p className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-circle mx-2.5' onClick={() => sound.pause()}>&#x23f8;</p>
+                    </div>
                     {/* {timerOn && (
                         <button className='border-2 mx-2.5 inset-x-2.50 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={() => sound.pause()}>Stop Music</button>
                     )} */}
@@ -269,9 +273,8 @@ function FlipGame() {
                         }
                     </div>
                 </div>
-            </div>
-        </div>
-
+            </div >
+        </div >
     );
 }
 

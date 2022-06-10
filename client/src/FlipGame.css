@@ -20,3 +20,6 @@
     height: auto;
     width: calc(100% - 90px);
   }
+.btn:hover{
+  text-decoration: none;
+}

@@ -22,7 +22,7 @@ function Home() {
 
     if (games.length === 0) {
         return (
-            <p>This is the homepage</p>
+            <button class="btn btn-3xl loading">Loading</button>
         )
     }
     else {
