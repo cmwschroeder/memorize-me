@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Howl, Howler } from 'howler';
 import successSound from '../assets/success-sound-effect.mp3';
 import failureSound from '../assets/game-fail-sound-effect.mp3';
@@ -31,7 +30,6 @@ function OldOrNew() {
     const [game, setGame] = useState({});
 
     const params = useParams();
-    const history = useHistory();
 
     const [unusedWords, setUnusedWords] = useState(['Hello', 'Goodbye', 'Computer', 'Programming', 'Javascript', 'Style', 'Sheet', 'Cool', 'Easy', 'Game', 'New', 'Old', 'List', 'Make', 'More', 'Later']);
     const [usedWords, setUsedWords] = useState([]);
@@ -123,14 +121,6 @@ function OldOrNew() {
         }
     }
 
-    const resetGame = () => {
-        history.go(0);
-    }
-
-    //handles closing the modal that has been opened for an error
-    const closeModal = function () {
-        history.go(0);
-    }
 
     return (
         <div className="bg-base-200 min-h-screen">
@@ -151,7 +141,7 @@ function OldOrNew() {
                         </div>
                         <div className="flex justify-around">
                             <button className="btn btn-secondary w-1/3 hidden" id="add-highscore" onClick={() => sendHighscore()}>Save Highscore</button>
-                            <button className="btn btn-primary w-1/3 hidden" id="replay-btn" onClick={() => resetGame()}>Play Again</button>
+                            <Link className="btn btn-primary w-1/3 hidden" id="replay-btn" to={'/game/' + game._id}>Play Again</Link>
                         </div>
                     </div>
                 </div>
@@ -162,7 +152,7 @@ function OldOrNew() {
                     <h3 className="font-bold text-3xl text-secondary">Save</h3>
                     <p className="py-4" id="error-text">Highscore saved, your new highscore is: {score}</p>
                     <div className="modal-action">
-                        <label htmlFor="my-modal-6" className="btn btn-accent w-1/3" onClick={() => closeModal()}>Close</label>
+                        <Link className="btn btn-accent w-1/3" to={'/game/' + game._id}>Close</Link>
                     </div>
                 </div>
             </div>
