@@ -122,12 +122,12 @@ function OldOrNew() {
     }
 
     const resetGame = () => {
-        window.location.reload();
+        window.location.reload(false);
     }
 
     //handles closing the modal that has been opened for an error
     const closeModal = function () {
-        window.location.reload();
+        window.location.reload(false);
     }
 
     return (
