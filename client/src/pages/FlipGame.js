@@ -195,15 +195,13 @@ function FlipGame() {
                 <div className='grid place-items-center matchcards'>
                     {/* If the user finishes the game, execute this... */}
                     {won && (
-                        <div className="card w-11/12 bg-neutral text-neutral-content mx-80 bg-base-300 shadow-xl  p-9">
+                        <div className=" w-11/12 card lg:card-side bg-base-100 shadow-xl">
                             <div class="card-body items-center text-center">
-                                <div className="flex justify-between">
-                                    <h2 class="card-title text-3xl p-6 text-secondary"> It took you <span className="text-primary">{clicks} </span>misses and <span className="text-primary">{time / 1000}</span>seconds!</h2>
-                                </div>
+                                <h2 class="text-3xl p-6 text-secondary">Completed on <span className="text-primary">{time / 1000}</span> seconds and <span className="text-primary">{clicks} </span>misses</h2>
                                 <p className='text-3xl text-secondary p-9'>Score: <span className="text-primary">{score}</span></p>
                                 <div className=" card-actions p-9 flex justify-around">
-                                    <button className="btn btn-secondary" id="old-btn" onClick={resetGame}>Play Again!</button>
-                                    <button className="btn btn-primary" id="new-btn" onClick={() => sendHighscore()}>Save Score</button>
+                                    <button className="btn btn-secondary buttonHov" id="old-btn" onClick={resetGame}>Play Again!</button>
+                                    <button className="btn btn-primary buttonHov" id="new-btn" onClick={() => sendHighscore()}>Save Score</button>
                                 </div>
                                 <p className='text-1xl text-secondary p-9'>Your current highscore is: <span className="text-primary">{highscore} &#127942;</span></p>
                             </div>
@@ -220,10 +218,10 @@ function FlipGame() {
                     </div>
                 </div>
                 <div>
-                    <button className="border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
-                    <button className="border-2 mx-2.5 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched: {match - 1} / 9</button>
-                    <button className="border-2 mx-2.5 border-purple-600 rounded-lg px-3 py-2 text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-gray-200" >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
-                    <button className='border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={resetGame}>Reset</button>
+                    <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
+                    <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched: {match - 1} / 9</button>
+                    <button className="btn-xs sm:btn-sm md:btn-md lg:btn-lg btn btn-link border-2 mx-2.5 border-purple-600 rounded-lg px-6 py-2 text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-gray-200" >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
+                    <button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={resetGame}>Reset</button>
                     {/* {timerOn && (
                         <button className='border-2 mx-2.5 inset-x-2.50 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={() => sound.pause()}>Stop Music</button>
                     )} */}

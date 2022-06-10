@@ -10,7 +10,7 @@
 }
 
 .gamecards:hover{
-    transform: translateY(-5px);
+    transition: transform 400ms;
 }
 
 .myscores{
@@ -25,4 +25,11 @@
 }
 .userTitle{
     font-family: 'Rock Salt', cursive;
+}
+
+.cardHover{
+    transition: transform 400ms;
+}
+cardHover:hover{
+    transition: transform 400ms;
 }
