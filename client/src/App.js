@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 
-import Games from './pages/Games';
 import FlipGame from './pages/FlipGame';
 import Login from './pages/Login';
 import OldOrNew from './pages/OldOrNew';
@@ -20,10 +19,8 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/games' component={Games} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/profile/me' component={Profile} />
-          <Route exact path='/oldornew' component={OldOrNew} />
           <Route exact path='/game/:gameId' component={GamePage} />
           <Route exact path='/game/oldornew/:gameId' component={OldOrNew} />
           <Route exact path='/game/matchcards/:gameId' component={FlipGame} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Auth from '../utils/Auth';
 
@@ -14,22 +15,22 @@ function NavBar() {
                     </label>
                     <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         {!Auth.loggedIn() 
-                            ? (<li><a href="/login" className="text-secondary">Profile</a></li>)
-                            : (<li><a href="/profile" className="text-secondary">Profile</a></li>)}
+                            ? (<li><Link to="/login" className="text-secondary">Profile</Link></li>)
+                            : (<li><Link to="/profile" className="text-secondary">Profile</Link></li>)}
                         {!Auth.loggedIn() 
-                            ? (<li><a href="/login" className="text-primary">Login</a></li>)
+                            ? (<li><Link to="/login" className="text-primary">Login</Link></li>)
                             : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}
                     </ul>
                 </div>
-                <a href="/" className="btn btn-ghost normal-case text-xl text-secondary">Home</a>
+                <Link to="/" className="btn btn-ghost normal-case text-xl text-secondary">Home</Link>
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                 {!Auth.loggedIn() 
-                            ? (<li><a href="/login" className="text-secondary">Profile</a></li>)
-                            : (<li><a href="/profile/me" className="text-secondary">Profile</a></li>)}
+                            ? (<li><Link to="/login" className="text-secondary">Profile</Link></li>)
+                            : (<li><Link to="/profile/me" className="text-secondary">Profile</Link></li>)}
                     {!Auth.loggedIn() 
-                            ? (<li><a href="/login" className="text-primary">Login</a></li>)
+                            ? (<li><Link to="/login" className="text-primary">Login</Link></li>)
                             : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}
                 </ul>
             </div>
