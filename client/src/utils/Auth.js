@@ -3,7 +3,7 @@ import decode from 'jwt-decode';
 class Auth {
     loggedIn() {
         const token = localStorage.getItem('id_token');
-        if(token && !this.tokenExpired(token)) {
+        if (token && !this.tokenExpired(token)) {
             return true;
         }
         else {
@@ -14,17 +14,24 @@ class Auth {
     tokenExpired(token) {
         try {
             const decodedToken = decode(token);
-            if(decodedToken * 1000 < Date.now()) {
+            if (decodedToken * 1000 < Date.now()) {
                 return true;
             }
             else {
                 return false;
             }
         }
-        catch(err) {
+        catch (err) {
             return false;
         }
     }
+
+
+    getToken() {
+        // Retrieves the user token from localStorage
+        return localStorage.getItem('id_token');
+    }
+
 
     logout() {
         localStorage.removeItem('id_token');
