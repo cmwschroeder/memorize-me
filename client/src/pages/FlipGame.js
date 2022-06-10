@@ -5,7 +5,7 @@ import '../FlipGame.css';
 import { images } from '../images/import';
 import { Howl } from 'howler'
 import bestsongever from '../assets/bestsongever.mp3'
-import { addHighscore } from '../utils/Helpers';
+import { addHighscore, updateHighscore } from '../utils/Helpers';
 
 function FlipGame() {
     //Manage Cards and Initial Input
@@ -41,7 +41,12 @@ function FlipGame() {
     const [game, setGame] = useState({});
     const params = useParams();
 
-    const [score, setHighScore] = useState(1200)
+    const [score, setScore] = useState(1200)
+
+
+    const [highscore, setHighscore] = useState(0);
+    const [highscoreIndex, setHighscoreIndex] = useState(-1);
+    const [highscoreId, setHighscoreId] = useState();
     // Algorithm that randomize the images position when starting Game. 
     // Randomize array in-place using Durstenfeld shuffle algorithm extracted from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     const shuffleArray = (array) => {
@@ -61,6 +66,7 @@ function FlipGame() {
     }, [])
 
     useEffect(() => {
+        const username = localStorage.getItem('username');
         const getGame = async () => {
             const response = await fetch('/api/game/' + params.gameId, {
                 method: 'GET',
@@ -70,9 +76,17 @@ function FlipGame() {
             });
             const gameData = await response.json();
             setGame(gameData);
+            for (let i = 0; i < gameData.highscores.length; i++) {
+                if (gameData.highscores[i].username === username) {
+                    setHighscoreIndex(i);
+                    setHighscore(gameData.highscores[i].score);
+                    setHighscoreId(gameData.highscores[i]._id);
+                }
+            };
         }
         getGame();
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     //Check for a match Only if a Second Card has been clicked (or selected)
     useEffect(() => {
@@ -121,7 +135,7 @@ function FlipGame() {
         // If a disable cards is executed, that means that found a Match.
         // setMatch tracks the value of the images matched
         setMatch(match + 1)
-        setHighScore(score + 10)
+        setScore(score + 10)
         // Since we map the same image twice, match needs to be multiplied by 2.
         // If match equals cards.lenght, finish the game an execute setWon
         if (match * 2 === cards.length) {
@@ -136,7 +150,7 @@ function FlipGame() {
         setUnflippedCards([firstCard.number, secondCard.number]);
         resetCards();
         setClicks(clicks + 1)
-        setHighScore(score - 20)
+        setScore(score - 20)
     };
 
     // Set the first card and Second Card to empty objects to compare other images (return to initial input after any xyz event)
@@ -162,7 +176,16 @@ function FlipGame() {
     }, [timerOn]);
 
     const sendHighscore = () => {
-        addHighscore(game.title, score);
+        if (highscoreIndex === -1) {
+            addHighscore(game.title, score);
+            document.getElementById('save').classList.add('modal-open');
+        } else {
+            updateHighscore(highscoreId, score);
+            document.getElementById('save').classList.add('modal-open');
+        }
+    }
+    const closeModal = function () {
+        window.location.reload();
     }
 
     return (
@@ -172,19 +195,29 @@ function FlipGame() {
                 <div className='grid place-items-center matchcards'>
                     {/* If the user finishes the game, execute this... */}
                     {won && (
-                        <div className="card w-11/12 bg-neutral text-neutral-content mx-80 bg-base-100 shadow-xl my-6 p-3">
+                        <div className="card w-11/12 bg-neutral text-neutral-content mx-80 bg-base-300 shadow-xl  p-9">
                             <div class="card-body items-center text-center">
                                 <div className="flex justify-between">
-                                    <h2 class="card-title text-3xl text-secondary"> It took you <span className="text-primary">{clicks} </span>misses! and <span className="text-primary">{time / 1000}</span>seconds!</h2>
+                                    <h2 class="card-title text-3xl p-6 text-secondary"> It took you <span className="text-primary">{clicks} </span>misses and <span className="text-primary">{time / 1000}</span>seconds!</h2>
                                 </div>
-                                <p className='text-3xl text-secondary mb-10 my-3.5'>Score: <span className="text-primary">{score}</span></p>
-                                <div className=" card-actions flex justify-around">
+                                <p className='text-3xl text-secondary p-9'>Score: <span className="text-primary">{score}</span></p>
+                                <div className=" card-actions p-9 flex justify-around">
                                     <button className="btn btn-secondary" id="old-btn" onClick={resetGame}>Play Again!</button>
                                     <button className="btn btn-primary" id="new-btn" onClick={() => sendHighscore()}>Save Score</button>
                                 </div>
+                                <p className='text-1xl text-secondary p-9'>Your current highscore is: <span className="text-primary">{highscore} &#127942;</span></p>
                             </div>
                         </div>
                     )}
+                </div>
+                <div className="modal modal-bottom sm:modal-middle" id="save">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-3xl text-secondary">Save</h3>
+                        <p className="py-4" id="error-text">Highscore saved, your new highscore is: {score}</p>
+                        <div className="modal-action">
+                            <label htmlFor="my-modal-6" className="btn btn-accent w-1/3" onClick={() => closeModal()}>Close</label>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <button className="border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
