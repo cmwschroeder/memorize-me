@@ -33,3 +33,11 @@
 cardHover:hover{
     transition: transform 400ms;
 }
+
+.sharkHov{
+    transition: 700ms;
+}
+
+.sharkHov:hover{
+    transition: transform 400ms;
+}

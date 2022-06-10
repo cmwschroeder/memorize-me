@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Card from '../components/Card';
 import '../FlipGame.css';
 import { images } from '../images/import';
 import { Howl } from 'howler'
+import shark from '../images/cutout.png'
 import background from '../assets/background.mp3'
 import wrong from '../assets/wrong.mp3'
 import correct from '../assets/correct.mp3'
 import gameover from '../assets/gameover.mp3'
+import bestsongever from '../assets/bestsongever.mp3'
 
 import { addHighscore, updateHighscore } from '../utils/Helpers';
 
+
+const easteregg = new Howl({
+    src: [bestsongever],
+    html5: true,
+    preload: true,
+})
 const sound = new Howl({
     src: [background],
     html5: true,
@@ -142,12 +150,6 @@ function FlipGame() {
 
     }
 
-    //Function That Resets Game
-    function resetGame() {
-        window.location.reload();
-    }
-
-
     // Disable those cards that has been match and reset the cards
     const disableCards = () => {
         setDisabledCards([firstCard.number, secondCard.number]);
@@ -165,6 +167,7 @@ function FlipGame() {
             setTimerOn(false)
             gameoversound.play()
             sound.stop()
+            easteregg.stop();
         }
     };
 
@@ -191,7 +194,7 @@ function FlipGame() {
         if (timerOn) {
             interval = setInterval(() => {
                 setTime((prevTime) => prevTime + 10);
-            }, 10);
+            }, 10); sound.play()
         } else if (!timerOn) {
             clearInterval(interval);
         }
@@ -207,12 +210,9 @@ function FlipGame() {
             document.getElementById('save').classList.add('modal-open');
         }
     }
-    const closeModal = function () {
-        window.location.reload();
-    }
     return (
         <div>
-            <h1 className="text-5xl font-bold flex justify-center m-5 myscores">Match Cards</h1>
+            <h1 className="text-5xl font-bold flex justify-center m-6 myscores">Match Cards</h1>
             <div className='app'>
                 <div className='grid place-items-center matchcards'>
                     {/* If the user finishes the game, execute this... */}
@@ -222,7 +222,7 @@ function FlipGame() {
                                 <h2 class="text-3xl p-6 text-secondary">Completed on <span className="text-primary">{time / 1000}</span> seconds and <span className="text-primary">{clicks} </span>misses</h2>
                                 <p className='text-3xl text-secondary p-9'>Score: <span className="text-primary">{score}</span></p>
                                 <div className=" card-actions p-9 flex justify-around">
-                                    <button className="btn btn-secondary buttonHov" id="old-btn" onClick={resetGame}>Play Again!</button>
+                                    <Link to={'/game/' + game._id}> <button className="btn btn-secondary buttonHov" id="old-btn">Play Again!</button></Link>
                                     <button className="btn btn-primary buttonHov" id="new-btn" onClick={() => sendHighscore()}>Save Score</button>
                                 </div>
                                 <p className='text-1xl text-secondary p-9'>Your current highscore is: <span className="text-primary">{highscore} &#127942;</span></p>
@@ -235,22 +235,20 @@ function FlipGame() {
                         <h3 className="font-bold text-3xl text-secondary">Save</h3>
                         <p className="py-4" id="error-text">Highscore saved, your new highscore is: {score}</p>
                         <div className="modal-action">
-                            <label htmlFor="my-modal-6" className="btn btn-accent w-1/3" onClick={() => closeModal()}>Close</label>
+                            <Link className="btn btn-accent w-1/3" to={'/game/' + game._id}>Close</Link>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <div clasName='grid grid-cols-6 gap-1'>
+                    <div>
                         <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
                         <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched: {match - 1} / 9</button>
-                        <p className=" btn btn-wide sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-purple-600 rounded-lg text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-purple-200" >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span text-2xl>{("0" + ((time / 10) % 100)).slice(-2)}</span></p>
-                        <button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={resetGame}>Reset</button>
-                        <p className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-circle mx-2.5' onClick={() => sound.play()}>&#9654;</p>
-                        <p className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-circle mx-2.5' onClick={() => sound.pause()}>&#x23f8;</p>
+                        <p className=" btn btn-wide sm:btn-xs md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-purple-600 rounded-lg text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-purple-200" >Time: <span onClick={() => sound.play()}>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></p>
+                        <Link to={'/game/' + game._id}><button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200'>Reset</button></Link>
+                        {timerOn && (
+                            <p className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-circle mx-2.5' onClick={() => sound.pause()}>&#9654;</p>
+                        )}
                     </div>
-                    {/* {timerOn && (
-                        <button className='border-2 mx-2.5 inset-x-2.50 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={() => sound.pause()}>Stop Music</button>
-                    )} */}
                     <div className='grid grid-cols-6 gap-1 card bg-base-100 w-11/12 shadow-xl my-6 p-3 shadow-xl '>
                         {
                             // For each one of the cards getter  const [cards, setCards] = useState([]); Generate a card.
@@ -271,8 +269,10 @@ function FlipGame() {
                                 />
                             ))
                         }
+
                     </div>
                 </div>
+                <p className='btn btn-xs btn-link sm:btn-sm md:btn-md lg:btn-lg btn-circle sharkHov' onClick={() => easteregg.play()}><img src={shark} alt="Logo" /></p>
             </div >
         </div >
     );
