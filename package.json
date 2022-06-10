@@ -2,6 +2,10 @@
   "name": "memorize-me",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "16.x",
+    "npm": "6.x"
+  },
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
