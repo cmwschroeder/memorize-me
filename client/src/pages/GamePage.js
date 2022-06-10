@@ -27,7 +27,7 @@ function GamePage() {
             return (
                 <tr class="hover">
                     <th>{i++}</th>
-                    <td>{highscore.username}</td>
+                    <td className='userTitle'>{highscore.username}</td>
                     <td>{highscore.score}</td>
                 </tr>
             )

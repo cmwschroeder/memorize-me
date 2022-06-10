@@ -1,48 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import { getUser } from '../utils/Helpers';
+import { getUser, deleteScore } from '../utils/Helpers';
+import Auth from '../utils/Auth';
+
+
 function Profile() {
-    const [user, setUser] = useState({});
-    const userDataLength = Object.keys(user).length;
-    useEffect(() => {
-        const getUserData = async () => {
-            try {
-                const token = localStorage.getItem('id_token');
-                if (!token) {
-                    return false;
-                }
-                const response = await getUser(token);
-                if (!response.ok) {
-                    throw new Error('something went wrong!');
-                }
-                const user = await response.json();
-                console.log(user);
-                setUser(user);
-            } catch (err) {
-                console.log(err)
+    const [userData, setUserData] = useState([]);
+    const [games, setGames] = useState([]);
+    // use this to determine if `useEffect()` hook needs to run again
+    const userDataLength = Object.keys(userData).length;
+
+    const getUserData = async () => {
+        try {
+            const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+            if (!token) {
+                return false;
             }
-        };
+
+            const response = await getUser(token);
+
+            if (!response.ok) {
+                return { hasError: true };
+            }
+
+            const userScore = await response.json();
+            setUserData(userScore);
+        } catch (err) {
+            return { hasError: true };
+        }
+    };
+    useEffect(() => {
         getUserData();
+    }, [userDataLength]);
 
-    }, [userDataLength])
+    // useEffect(() => {
+    //     const getGames = async () => {
+    //         const response = await fetch('/api/game', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    //         const gameList = await response.json();
+    //         setGames(gameList);
+    //     };
+    //     getGames();
+    //   
+    // }, []);
+    // console.log(games)
 
-    const getHighscoreList = (sortedHighscores) => {
-        let i = 1;
-        return sortedHighscores.map((highscore) => {
-            return (
-                <tr class="hover">
-                    <th>{i++}</th>
-                    <td>{highscore.username}</td>
-                    <td>{highscore.score}</td>
-                </tr>
-            )
-        });
+    const handleDeleteScore = async (_id) => {
+        fetch(`/api/scores/${_id}`, {
+            method: 'DELETE'
+        }).then((result) => {
+            result.json().then((res) => {
+                console.log(res)
+                getUserData()
+            })
+        })
+    };
+    if (!userDataLength) {
+        return <h2>LOADING...{userData.savedBooks}</h2>;
     }
 
+    console.log(userData)
+    let i = 1;
     return (
         <div>
-            <h1 className="text-5xl font-bold flex justify-center m-5 myscores"> My Scores</h1>
+            <h1 className="text-5xl font-bold flex justify-center m-5 myscores"> My Scores &#127942;</h1>
+            <h1 className="text-xl font-bold flex justify-center m-5 userTitle"><span>{userData.username}</span></h1>
             <div className="w-full flex justify-center">
-                {getHighscoreList}
                 <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                     <thead>
                         <tr>
@@ -50,33 +77,23 @@ function Profile() {
                             <th>Game</th>
                             <th>Score</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
-                    {/* {user.map((userD) => {
-                        return (
-                            <h1 key={userD._id}>{userD.username}</h1>
-                        )
-                    })} */}
 
                     <tbody>
-                        <tr className="hover">
-                            <th>1</th>
-                            <td>Matching Game</td>
-                            <td>120</td>
-                            <td><button className="btn btn-error gamecards">Delete</button></td>
-                        </tr>
-                        <tr className="hover">
-                            <th>2</th>
-                            <td>Old Or New</td>
-                            <td>600</td>
-                            <td><button className="btn btn-error gamecards">Delete</button></td>
-                        </tr>
-                        <tr className="hover">
-                            <th>3</th>
-                            <td>Game 3</td>
-                            <td>800</td>
-                            <td><button className="btn btn-error gamecards">Delete</button></td>
-                        </tr>
+                        {
+                            userData.highscores.map((userScore, index) => {
+                                return (
+                                    <tr key={index} className="hover">
+                                        <th>{i++}</th>
+                                        <td>{userScore.game}</td>
+                                        <td>{userScore.score}</td>
+                                        <td><button className="btn btn-error gamecards" onClick={() => handleDeleteScore(userScore._id)}>Delete</button></td>
+                                        <td><a className="btn btn-glass gamecards" href={'/'}>Play</a></td>
+                                    </tr>
+                                );
+                            })}
                     </tbody>
                 </table>
             </div>
