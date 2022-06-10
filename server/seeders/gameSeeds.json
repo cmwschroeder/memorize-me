@@ -16,14 +16,5 @@
         "preview": "matching.gif",
         "link": "games/game1",
         "highscores": []
-    },
-    {
-        "title": "Game 3",
-        "description": "Test your speed and memorization by playing this card matching game.",
-        "instructions": "Click on the cards to flip. Click once to show a card, the second click must be on the matching card to complete the set.",
-        "image": "matching.png",
-        "preview": "matching.gif",
-        "link": "games/game1",
-        "highscores": []
     }
 ]

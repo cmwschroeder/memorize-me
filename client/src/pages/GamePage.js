@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { sortHighscores } from '../utils/Helpers';
 
 function GamePage() {
@@ -84,7 +84,7 @@ function GamePage() {
                                 <h2 className="text-2xl my-5 text-secondary">How to play: </h2>
                                 <p className="text-xl">{game.instructions}</p>
                                 <div className="w-full flex justify-center my-10">
-                                    <a href={"/game/" + game.title.replace(/\s/g, '') + '/' + game._id} className="btn btn-primary w-1/2">Play</a>
+                                    <Link to={"/game/" + game.title.replace(/\s/g, '') + '/' + game._id} className="btn btn-primary w-1/2">Play</Link>
                                 </div>
                             </div>
                         </div>
