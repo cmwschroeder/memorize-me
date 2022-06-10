@@ -4,16 +4,36 @@ import Card from '../components/Card';
 import '../FlipGame.css';
 import { images } from '../images/import';
 import { Howl } from 'howler'
-import bestsongever from '../assets/bestsongever.mp3'
+import background from '../assets/background.mp3'
+import wrong from '../assets/wrong.mp3'
+import correct from '../assets/correct.mp3'
+
 import { addHighscore, updateHighscore } from '../utils/Helpers';
+
+const sound = new Howl({
+    src: [background],
+    html5: true,
+    preload: true,
+})
+const correctsound = new Howl({
+    src: [correct],
+    html5: true,
+    preload: true,
+})
+const wrongsound = new Howl({
+    src: [wrong],
+    html5: true,
+    preload: true,
+})
+// const gameoversound = new Howl({
+//     src: [omgw],
+//     html5: true,
+//     preload: true,
+// })
 
 function FlipGame() {
     //Manage Cards and Initial Input
-    const sound = new Howl({
-        src: [bestsongever],
-        html5: true,
-        preload: true,
-    })
+
     // For each Image, generate a Card 
     const [cards, setCards] = useState([]);
 
@@ -110,7 +130,6 @@ function FlipGame() {
         // This method is only returns "0" if I'm trying to click on the same card that has been flipped (onClicked) 
         return 1;
     }
-
     // Function that checks First and Second Card when Clicked. 
     const checkForMatch = () => {
         // Check if the First Card Clicked and Second Card Clicked Match... 
@@ -132,6 +151,7 @@ function FlipGame() {
     const disableCards = () => {
         setDisabledCards([firstCard.number, secondCard.number]);
         resetCards();
+        correctsound.play()
         // If a disable cards is executed, that means that found a Match.
         // setMatch tracks the value of the images matched
         setMatch(match + 1)
@@ -142,6 +162,8 @@ function FlipGame() {
             // setWon tracks the value of the Won getter, which executes a <div> on the return and stops the game. 
             setWon(true);
             setTimerOn(false)
+            // gameoversound.play()
+            sound.stop()
         }
     };
 
@@ -151,6 +173,7 @@ function FlipGame() {
         resetCards();
         setClicks(clicks + 1)
         setScore(score - 20)
+        wrongsound.play()
     };
 
     // Set the first card and Second Card to empty objects to compare other images (return to initial input after any xyz event)
@@ -187,7 +210,6 @@ function FlipGame() {
     const closeModal = function () {
         window.location.reload();
     }
-
     return (
         <div>
             <h1 className="text-5xl font-bold flex justify-center m-5 myscores">Match Cards</h1>
@@ -220,7 +242,7 @@ function FlipGame() {
                 <div>
                     <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
                     <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched: {match - 1} / 9</button>
-                    <button className="btn-xs sm:btn-sm md:btn-md lg:btn-lg btn btn-link border-2 mx-2.5 border-purple-600 rounded-lg px-6 py-2 text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-gray-200" >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
+                    <button className=" btn-xs sm:btn-sm md:btn-md lg:btn-lg btn btn-link border-2 mx-2.5 border-purple-600 rounded-lg px-6 py-2 text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-gray-200" >Time: <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></button>
                     <button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={resetGame}>Reset</button>
                     {/* {timerOn && (
                         <button className='border-2 mx-2.5 inset-x-2.50 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={() => sound.pause()}>Stop Music</button>
@@ -246,7 +268,6 @@ function FlipGame() {
                             ))
                         }
                     </div>
-                    <button className="btn-xs btn-error btn btn-outline " onClick={() => sound.play()}>Don't Click Me</button>
                 </div>
             </div>
         </div>
