@@ -3,6 +3,12 @@ import { useParams, Link } from 'react-router-dom';
 import { Howl, Howler } from 'howler';
 import successSound from '../assets/success-sound-effect.mp3';
 import failureSound from '../assets/game-fail-sound-effect.mp3';
+import dogSound from '../assets/sound-game/dog-barking.mp3';
+import catSound from '../assets/sound-game/cat-meowing.mp3';
+import hourseSound from '../assets/sound-game/horse-neigh.mp3';
+import cowSound from '../assets/sound-game/cow-moo.mp3';
+import duckSound from '../assets/sound-game/duck-quacking.mp3';
+import owlSound from '../assets/sound-game/owl-hoo.mp3';
 import { addHighscore, updateHighscore } from '../utils/Helpers';
 
 function SoundGame() {
@@ -14,6 +20,36 @@ function SoundGame() {
 
     var incorrectSound = new Howl({
         src: [failureSound],
+        html5: true,
+    });
+
+    var dogBarking = new Howl({
+        src: [dogSound],
+        html5: true,
+    });
+
+    var catMeowing = new Howl({
+        src: [catSound],
+        html5: true,
+    });
+
+    var horseNeighing = new Howl({
+        src: [hourseSound],
+        html5: true,
+    });
+
+    var cowMooing = new Howl({
+        src: [cowSound],
+        html5: true,
+    });
+
+    var duckQuacking = new Howl({
+        src: [duckSound],
+        html5: true,
+    });
+
+    var owlHooing = new Howl({
+        src: [owlSound],
         html5: true,
     });
 
@@ -52,12 +88,26 @@ function SoundGame() {
     }, []);
 
     const checkAnswer = () => {
+        const currScore = score + 1;
         setScore(score + 1);
-        if(score % 2 === 1) {
-            correctSound.play();
+        if(currScore === 1) {
+            dogBarking.play();
+        }
+        else if(currScore === 2) {
+            catMeowing.play();
+        }
+        else if(currScore === 3) {
+            horseNeighing.play();
+        }
+        else if(currScore === 4) {
+            duckQuacking.play();
+        }
+        else if(currScore === 5) {
+            owlHooing.play();
         }
         else {
-            incorrectSound.play();
+            cowMooing.play();
+            setScore(0);
         }
     }
 
@@ -85,8 +135,7 @@ function SoundGame() {
                     <p className="text-3xl text-secondary mb-10 hidden" id="end-score">Your score was: {score}</p>
                     <p className="text-3xl text-secondary mb-10 hidden" id="curr-highscore">Your current highscore is: {highscore} &#127942;</p>
                     <div className="flex justify-around">
-                        <button className="btn btn-secondary w-1/3" onClick={() => checkAnswer()} id="dog-btn">Dog</button>
-                        <button className="btn btn-primary w-1/3" onClick={() => checkAnswer()} id="cat-btn">Cat</button>
+                        <button className="btn btn-secondary w-1/3" onClick={() => checkAnswer()} id="dog-btn">Play Sound</button>
                     </div>
                     <div className="flex justify-around">
                         <button className="btn btn-secondary w-1/3 hidden" id="add-highscore" onClick={() => sendHighscore()}>Save Highscore</button>
