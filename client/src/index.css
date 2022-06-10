@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Bungee+Shade&family=Train+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Bungee+Shade&family=Rock+Salt&family=Train+One&family=Work+Sans&display=swap');
 *{
 }
 
@@ -22,4 +22,7 @@
 }
 .buttonHov:hover{
     transform: scale(0.95);
+}
+.userTitle{
+    font-family: 'Rock Salt', cursive;
 }

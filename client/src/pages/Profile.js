@@ -1,48 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { getUser } from '../utils/Helpers';
+import { getUser, deleteScore } from '../utils/Helpers';
 import Auth from '../utils/Auth';
 
 
 function Profile() {
     const [userData, setUserData] = useState([]);
-
+    const [games, setGames] = useState([]);
     // use this to determine if `useEffect()` hook needs to run again
     const userDataLength = Object.keys(userData).length;
 
-    useEffect(() => {
-        const getUserData = async () => {
-            try {
-                const token = Auth.loggedIn() ? Auth.getToken() : null;
+    const getUserData = async () => {
+        try {
+            const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-                if (!token) {
-                    return false;
-                }
+            if (!token) {
+                return false;
+            }
 
-                const response = await getUser(token);
+            const response = await getUser(token);
 
-                if (!response.ok) {
-                    return { hasError: true };
-                }
-
-                const userScore = await response.json();
-                setUserData(userScore);
-            } catch (err) {
+            if (!response.ok) {
                 return { hasError: true };
             }
-        };
 
+            const userScore = await response.json();
+            setUserData(userScore);
+        } catch (err) {
+            return { hasError: true };
+        }
+    };
+    useEffect(() => {
         getUserData();
     }, [userDataLength]);
 
+    // useEffect(() => {
+    //     const getGames = async () => {
+    //         const response = await fetch('/api/game', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    //         const gameList = await response.json();
+    //         setGames(gameList);
+    //     };
+    //     getGames();
+    //   
+    // }, []);
+    // console.log(games)
+
+    const handleDeleteScore = async (_id) => {
+        fetch(`http://localhost:3000/api/scores/${_id}`, {
+            method: 'DELETE'
+        }).then((result) => {
+            result.json().then((res) => {
+                console.log(res)
+                getUserData()
+            })
+        })
+    };
     if (!userDataLength) {
         return <h2>LOADING...{userData.savedBooks}</h2>;
     }
 
-    console.log(userData);
-
+    console.log(userData)
+    let i = 1;
     return (
         <div>
-            <h1 className="text-5xl font-bold flex justify-center m-5 myscores"> My Scores</h1>
+            <h1 className="text-5xl font-bold flex justify-center m-5 myscores"> My Scores &#127942;</h1>
+            <h1 className="text-xl font-bold flex justify-center m-5 userTitle"><span>{userData.username}</span></h1>
             <div className="w-full flex justify-center">
                 <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                     <thead>
@@ -51,18 +77,20 @@ function Profile() {
                             <th>Game</th>
                             <th>Score</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {
-                            userData.highscores.map((userData, index) => {
+                            userData.highscores.map((userScore, index) => {
                                 return (
                                     <tr key={index} className="hover">
-                                        <th>1</th>
-                                        <td>{userData.game}</td>
-                                        <td>{userData.score}</td>
-                                        <td><button className="btn btn-error gamecards">Delete</button></td>
+                                        <th>{i++}</th>
+                                        <td>{userScore.game}</td>
+                                        <td>{userScore.score}</td>
+                                        <td><button className="btn btn-error gamecards" onClick={() => handleDeleteScore(userScore._id)}>Delete</button></td>
+                                        <td><a className="btn btn-glass gamecards" href={'/'}>Play</a></td>
                                     </tr>
                                 );
                             })}

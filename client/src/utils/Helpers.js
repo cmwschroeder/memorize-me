@@ -36,6 +36,16 @@ export const sortHighscores = (highscores) => {
     });
 }
 
+export const deleteScore = (token) => {
+    return fetch('/api/scores/', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
+        },
+    });
+};
+
 
 export const getUser = (token) => {
     return fetch('/api/users/me', {
