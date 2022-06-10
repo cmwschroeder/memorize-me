@@ -22,6 +22,9 @@ import React, {useEffect, useState} from "react";
         }
         else {
             // if incoreect, game over
+            document.getElementById('random').classList.add('hidden');
+            document.getElementById('answer').classList.add('hidden');
+            document.getElementById('btn').classList.add('hidden');
             // hide all buttons
         }
     }
@@ -31,9 +34,9 @@ import React, {useEffect, useState} from "react";
         <div>
             <h7>Submit your answer</h7> 
             <form>
-                <p>{randomNumber}</p>
-                <textarea placeholder="type answer here"></textarea>
-                <button type="submit" on onClick={()=> chooseRandomNumber()}>Submit answer</button>
+                <p className="random">{randomNumber}</p>
+                <textarea className="answer" placeholder="type answer here"></textarea>
+                <button className="btn" type="submit" on onClick={()=> chooseRandomNumber()}>Submit answer</button>
             </form>
         </div>
        
