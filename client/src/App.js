@@ -22,7 +22,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route exact path='/games' component={Games} />
           <Route exact path='/login' component={Login} />
-          <Route exact path='/profile' component={Profile} />
+          <Route exact path='/profile/me' component={Profile} />
           <Route exact path='/oldornew' component={OldOrNew} />
           <Route exact path='/game/:gameId' component={GamePage} />
           <Route exact path='/game/oldornew/:gameId' component={OldOrNew} />
