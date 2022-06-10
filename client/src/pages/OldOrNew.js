@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router'
 import { useParams } from 'react-router-dom';
 import { Howl, Howler } from 'howler';
 import successSound from '../assets/success-sound-effect.mp3';
@@ -30,6 +31,7 @@ function OldOrNew() {
     const [game, setGame] = useState({});
 
     const params = useParams();
+    const history = useHistory();
 
     const [unusedWords, setUnusedWords] = useState(['Hello', 'Goodbye', 'Computer', 'Programming', 'Javascript', 'Style', 'Sheet', 'Cool', 'Easy', 'Game', 'New', 'Old', 'List', 'Make', 'More', 'Later']);
     const [usedWords, setUsedWords] = useState([]);
@@ -122,12 +124,12 @@ function OldOrNew() {
     }
 
     const resetGame = () => {
-        window.location.reload(false);
+        history.go(0);
     }
 
     //handles closing the modal that has been opened for an error
     const closeModal = function () {
-        window.location.reload(false);
+        history.go(0);
     }
 
     return (
