@@ -40,7 +40,6 @@ const Card = ({ name, number, frontFace, flipCard, unflippedCards, disabledCards
         if (value !== 0) {
             setIsFlipped(!isFlipped);
         }
-
     }
 
     return (
