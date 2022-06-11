@@ -105,29 +105,98 @@ function SoundGame() {
         return sequence;
     }
 
-    const playSequence = (sequence) => {
-        for (let i = 0; i < sequence.length; i++) {
-            let sound;
-            switch (sequence[i]) {
-                case 0: sound = dogBarking;
-                    break;
-                case 1: sound = catMeowing;
-                    break;
-                case 2: sound = horseNeighing;
-                    break;
-                case 3: sound = cowMooing;
-                    break;
-                case 4: sound = duckQuacking;
-                    break;
-                default: sound = owlHooing;
-                    break;
-            }
-            sound.play();
+    const disableButtons = () => {
+        document.getElementById('dog-btn').classList.add('btn-disabled');
+        document.getElementById('cat-btn').classList.add('btn-disabled');
+        document.getElementById('horse-btn').classList.add('btn-disabled');
+        document.getElementById('cow-btn').classList.add('btn-disabled');
+        document.getElementById('duck-btn').classList.add('btn-disabled');
+        document.getElementById('owl-btn').classList.add('btn-disabled');
+    }
+
+    const enableButtons = () => {
+        document.getElementById('dog-btn').classList.remove('btn-disabled');
+        document.getElementById('cat-btn').classList.remove('btn-disabled');
+        document.getElementById('horse-btn').classList.remove('btn-disabled');
+        document.getElementById('cow-btn').classList.remove('btn-disabled');
+        document.getElementById('duck-btn').classList.remove('btn-disabled');
+        document.getElementById('owl-btn').classList.remove('btn-disabled');
+    }
+
+    //recursive function that will play one sound, wait 3 seconds, then send the sequence without the 
+    //first element in the sequence
+    const playSequence = async (sequence) => {
+        let sound, animalImage;
+        switch (sequence[0]) {
+            case 0: sound = dogBarking;
+                animalImage = document.getElementById('dog-img');
+                break;
+            case 1: sound = catMeowing;
+                animalImage = document.getElementById('cat-img');
+                break;
+            case 2: sound = horseNeighing;
+                animalImage = document.getElementById('horse-img');
+                break;
+            case 3: sound = cowMooing;
+                animalImage = document.getElementById('cow-img');
+                break;
+            case 4: sound = duckQuacking;
+                animalImage = document.getElementById('duck-img');
+                break;
+            default: sound = owlHooing;
+                animalImage = document.getElementById('owl-img');
+                break;
         }
+        sound.play();
+        animalImage.classList.remove('opacity-40');
+        setTimeout(() => {
+            sequence.shift();
+            animalImage.classList.add('opacity-40');
+            setTimeout(() => {
+                if (sequence.length !== 0) {
+                    playSequence(sequence);
+                }
+                else {
+                    enableButtons();
+                }
+            }, 500);
+        }, 2500);
+    }
+
+    const playSound = (number) => {
+        disableButtons();
+        let sound, animalImage;
+        switch (number) {
+            case 0: sound = dogBarking;
+                animalImage = document.getElementById('dog-img');
+                break;
+            case 1: sound = catMeowing;
+                animalImage = document.getElementById('cat-img');
+                break;
+            case 2: sound = horseNeighing;
+                animalImage = document.getElementById('horse-img');
+                break;
+            case 3: sound = cowMooing;
+                animalImage = document.getElementById('cow-img');
+                break;
+            case 4: sound = duckQuacking;
+                animalImage = document.getElementById('duck-img');
+                break;
+            default: sound = owlHooing;
+                animalImage = document.getElementById('owl-img');
+                break;
+        }
+        sound.play();
+        animalImage.classList.remove('opacity-40');
+        setTimeout(() => {
+            animalImage.classList.add('opacity-40');
+            enableButtons();
+        }, 2500);
     }
 
     const startGame = () => {
-        const currSequence = makeSequence(1);
+        disableButtons();
+        const currSequence = makeSequence(10);
         playSequence(currSequence);
     }
 
@@ -152,7 +221,7 @@ function SoundGame() {
                 <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                     <div className="card-body text-center">
                         <div className="flex justify-between">
-                            <h2 className="card-title text-4xl text-primary">Old Or New:</h2>
+                            <h2 className="card-title text-4xl text-primary">Sound Sequence:</h2>
                             <h2 className="card-title text-4xl">Score: {score}</h2>
                         </div>
                         <div className="flex justify-center">
@@ -163,39 +232,39 @@ function SoundGame() {
                         <p className="text-3xl text-secondary mb-10 hidden" id="curr-highscore">Your current highscore is: {highscore} &#127942;</p>
                         <div className="flex flex-row flex-wrap justify-around">
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
-                                <figure className="h-56"><img src={dogImage} alt="Dog" /></figure>
+                                <figure className="h-56 opacity-40" id="dog-img"><img src={dogImage} alt="Dog" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3" onClick={() => checkAnswer()}>Dog Sound</button>
+                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(0)} id="dog-btn">Dog Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
-                                <figure className="h-56"><img src={catImage} alt="Cat" /></figure>
+                                <figure className="h-56 opacity-40" id="cat-img"><img src={catImage} alt="Cat" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3">Cat Sound</button>
+                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(1)} id="cat-btn">Cat Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
-                                <figure className="h-56"><img className="w-fit" src={horseImage} alt="Horse" /></figure>
+                                <figure className="h-56 opacity-40" id="horse-img"><img className="w-fit" src={horseImage} alt="Horse" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3">Horse Sound</button>
+                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(2)} id="horse-btn">Horse Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
-                                <figure className="h-56"><img src={cowImage} alt="Cow" /></figure>
+                                <figure className="h-56 opacity-40" id="cow-img"><img src={cowImage} alt="Cow" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3">Cow Sound</button>
+                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(3)} id="cow-btn">Cow Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
-                                <figure className="h-56"><img src={duckImage} alt="Duck" /></figure>
+                                <figure className="h-56 opacity-40" id="duck-img"><img src={duckImage} alt="Duck" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3">Duck Sound</button>
+                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(4)} id="duck-btn">Duck Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
-                                <figure className="h-56"><img src={owlImage} alt="Duck" /></figure>
+                                <figure className="h-56 opacity-40" id="owl-img"><img src={owlImage} alt="Owl" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3">Owl Sound</button>
+                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(5)} id="owl-btn">Owl Sound</button>
                                 </div>
                             </div>
 
