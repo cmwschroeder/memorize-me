@@ -55,13 +55,13 @@ var duckQuacking = new Howl({
     html5: true,
 });
 
+var owlHooing = new Howl({
+    src: [owlSound],
+    html5: true,
+});
+
 function SoundGame() {
 
-
-    var owlHooing = new Howl({
-        src: [owlSound],
-        html5: true,
-    });
 
     Howler.volume(0.2);
 
@@ -98,33 +98,42 @@ function SoundGame() {
     }, []);
 
     const makeSequence = (sequenceLength) => {
+        const sequence = [];
         for (let i = 0; i < sequenceLength; i++) {
-
+            sequence.push(Math.floor(Math.random() * 6));
         }
+        return sequence;
+    }
+
+    const playSequence = (sequence) => {
+        for (let i = 0; i < sequence.length; i++) {
+            let sound;
+            switch (sequence[i]) {
+                case 0: sound = dogBarking;
+                    break;
+                case 1: sound = catMeowing;
+                    break;
+                case 2: sound = horseNeighing;
+                    break;
+                case 3: sound = cowMooing;
+                    break;
+                case 4: sound = duckQuacking;
+                    break;
+                default: sound = owlHooing;
+                    break;
+            }
+            sound.play();
+        }
+    }
+
+    const startGame = () => {
+        const currSequence = makeSequence(1);
+        playSequence(currSequence);
     }
 
     const checkAnswer = () => {
         const currScore = score + 1;
         setScore(score + 1);
-        if (currScore === 1) {
-            dogBarking.play();
-        }
-        else if (currScore === 2) {
-            catMeowing.play();
-        }
-        else if (currScore === 3) {
-            horseNeighing.play();
-        }
-        else if (currScore === 4) {
-            duckQuacking.play();
-        }
-        else if (currScore === 5) {
-            owlHooing.play();
-        }
-        else {
-            cowMooing.play();
-            setScore(0);
-        }
     }
 
     const sendHighscore = () => {
@@ -145,6 +154,9 @@ function SoundGame() {
                         <div className="flex justify-between">
                             <h2 className="card-title text-4xl text-primary">Old Or New:</h2>
                             <h2 className="card-title text-4xl">Score: {score}</h2>
+                        </div>
+                        <div className="flex justify-center">
+                            <button className="btn btn-secondary w-1/4" onClick={() => startGame()}>Start</button>
                         </div>
                         <p className="text-3xl text-secondary my-20 hidden" id="game-over">Game Over</p>
                         <p className="text-3xl text-secondary mb-10 hidden" id="end-score">Your score was: {score}</p>
