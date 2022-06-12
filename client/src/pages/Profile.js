@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { getUser, deleteScore } from '../utils/Helpers';
 import Auth from '../utils/Auth';
 import { Link } from 'react-router-dom';
+import { Howl } from 'howler'
+import roblox from '../assets/roblox.mp3'
+
+const deletesound = new Howl({
+    src: [roblox],
+    html5: true,
+    preload: true,
+})
+
 
 
 function Profile() {
@@ -61,7 +70,7 @@ function Profile() {
         })
     };
     if (!userDataLength) {
-        return <h2>LOADING...{userData.savedBooks}</h2>;
+        return <button class="btn btn-3xl loading">Loading</button>
     }
 
     console.log(userData)
@@ -90,7 +99,7 @@ function Profile() {
                                         <th>{i++}</th>
                                         <td>{userScore.game}</td>
                                         <td>{userScore.score}</td>
-                                        <td><button className="btn btn-error gamecards" onClick={() => handleDeleteScore(userScore._id)}>Delete</button></td>
+                                        <td><button className="btn btn-error gamecards" onClick={() => handleDeleteScore(userScore._id) && deletesound.play()}>Delete</button></td>
                                         <td><Link className="btn btn-glass gamecards" to={'/'}>Play</Link></td>
                                     </tr>
                                 );

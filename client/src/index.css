@@ -10,7 +10,7 @@
 }
 
 .gamecards:hover{
-    transition: transform 400ms;
+    transform: scale(1.06);
 }
 
 .myscores{
@@ -31,5 +31,13 @@
     transition: transform 400ms;
 }
 cardHover:hover{
+    transition: transform 400ms;
+}
+
+.sharkHov{
+    transition: 700ms;
+}
+
+.sharkHov:hover{
     transition: transform 400ms;
 }
