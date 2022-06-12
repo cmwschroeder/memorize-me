@@ -34,5 +34,14 @@
         "preview": "sound-sequence.gif",
         "link": "soundsequence",
         "highscores": []
+    },
+    {
+        "title": "Number Sequence",
+        "description": "Try to remember the number that is displayed",
+        "instructions": "Memorize the number and type in what you remeber once the time ends",
+        "image": "sound-sequence.png",
+        "preview": "sound-sequence.gif",
+        "link": "NumberSequence",
+        "highscores": []
     }
 ]

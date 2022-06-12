@@ -13,6 +13,12 @@ function NumberGame(props) {
         setRandomNumber(number);
         return number;
     }
+    // start game
+    const startGame = () => {
+        const currAnswer = chooseRandomNumber(2)
+        
+    }
+
     // create a function to check answers
     const [score, totScore] = useState(0);
     const answer = (number) => {
@@ -73,6 +79,9 @@ function NumberGame(props) {
     // create a function to display new number after submit is clicked
     return (
         <div>
+            <div>
+                <button className="btn btn-accent" onClick={() => startGame()}>Start game</button>
+            </div>
             {/* game */}
             <h7>Submit your answer</h7>
             <div>
