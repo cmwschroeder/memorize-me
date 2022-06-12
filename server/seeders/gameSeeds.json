@@ -16,5 +16,14 @@
         "preview": "matching.gif",
         "link": "games/game1",
         "highscores": []
+    },
+    {
+        "title": "Sound Sequence",
+        "description": "Try to remember as many sounds in a row as you can!",
+        "instructions": "A sequence of sounds will play, click the buttons to match the sequence of sounds",
+        "image": "sound-sequence.png",
+        "preview": "sound-sequence.gif",
+        "link": "soundsequence",
+        "highscores": []
     }
 ]
