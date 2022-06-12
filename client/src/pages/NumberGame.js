@@ -20,11 +20,16 @@ function NumberGame(props) {
             totScore(score + 1);
         }
         else {
-            // if incoreect, game over
+            // if incoreect, game over and hide all buttons
             document.getElementById('random').classList.add('hidden');
             document.getElementById('answer').classList.add('hidden');
             document.getElementById('btn').classList.add('hidden');
-            // hide all buttons
+            // display game over stuff
+            document.getElementById('game-over').classList.remove('hidden');
+            document.getElementById('end-score').classList.remove('hidden');
+            document.getElementById('curr-highscore').classList.remove('hidden');
+            document.getElementById('replay-btn').classList.remove('hidden');
+            document.getElementById('add-highscore').classList.remove('hidden');
         }
     }
   // create fucntion to tie to games route to send scores
