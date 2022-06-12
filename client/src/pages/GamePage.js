@@ -79,7 +79,7 @@ function GamePage() {
                                 <img src={'/preview-gifs/' + game.preview} alt="Game Preview"></img>
                             </div>
                             <div className="w-6/12">
-                                <h1 className="text-4xl text-primary my-10">{game.title}</h1>
+                                <h1 className="text-4xl text-accent my-10">{game.title}</h1>
                                 <p className="text-xl">{game.description}</p>
                                 <h2 className="text-2xl my-5 text-secondary">How to play: </h2>
                                 <p className="text-xl">{game.instructions}</p>
