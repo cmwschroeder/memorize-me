@@ -21,7 +21,7 @@
         "title": "Farley Says",
         "description": "Follow Farley commands, and remember an increasingly long pattern of card presses.",
         "instructions": "Memorize the sequence of Cards that light up, then press them in order. Every time you finish the pattern, it gets longer.",
-        "image": "matching.png",
+        "image": "farleysays.png",
         "preview": "matching.gif",
         "link": "matchingame",
         "highscores": []
