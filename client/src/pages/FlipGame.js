@@ -244,10 +244,7 @@ function FlipGame() {
                         <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
                         <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched: {match - 1} / 9</button>
                         <p className=" btn btn-wide sm:btn-xs md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-purple-600 rounded-lg text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-purple-200" >Time: <span onClick={() => sound.play()}>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></p>
-                        <Link to={'/game/' + game._id}><button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200'>Reset</button></Link>
-                        {timerOn && (
-                            <p className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-circle mx-2.5' onClick={() => sound.pause()}>&#9654;</p>
-                        )}
+                        <Link to={'/game/' + game._id}><button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={() => sound.stop()}>Reset</button></Link>
                     </div>
                     <div className='grid grid-cols-6 gap-1 card bg-base-100 w-11/12 shadow-xl my-6 p-3 shadow-xl '>
                         {
@@ -272,7 +269,11 @@ function FlipGame() {
 
                     </div>
                 </div>
-                <p className='btn btn-xs btn-link sm:btn-sm md:btn-md lg:btn-lg btn-circle sharkHov' onClick={() => easteregg.play()}><img src={shark} alt="Logo" /></p>
+                {timerOn && (
+                    <p className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg mx-2.5' onClick={() => sound.pause()} >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </p>
+                )}
             </div >
         </div >
     );

@@ -75,10 +75,10 @@ function GamePage() {
                 <div className="w-full flex flex-row flex-wrap justify-center">
                     <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                         <div className="flex flex-row justify-around">
-                            <div className="w-1/3">
+                            <div className="w-6/12">
                                 <img src={'/preview-gifs/' + game.preview} alt="Game Preview"></img>
                             </div>
-                            <div className="w-1/3">
+                            <div className="w-6/12">
                                 <h1 className="text-4xl text-primary my-10">{game.title}</h1>
                                 <p className="text-xl">{game.description}</p>
                                 <h2 className="text-2xl my-5 text-secondary">How to play: </h2>

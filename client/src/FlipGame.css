@@ -1,10 +1,3 @@
-.app {
-    height: 85vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(50, 48, 58);
-  }
   
   .cardFlip {
     display: inline-block;
