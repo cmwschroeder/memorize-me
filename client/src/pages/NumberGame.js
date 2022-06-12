@@ -68,13 +68,14 @@ function NumberGame(props) {
     // create a function to display new number after submit is clicked
     return (
         <div>
+            {/* game */}
             <h7>Submit your answer</h7>
-            <form>
-                <p className="random">{randomNumber}</p>
-                <textarea className="answer" placeholder="type answer here"></textarea>
-                <button className="btn" type="submit" on onClick={() => chooseRandomNumber()}>Submit answer</button>
-            </form>
-
+            <div>
+                <p className="random text-accent">{randomNumber}</p>
+                <textarea className="answer text-warning" placeholder="type answer here"></textarea>
+                <button className="btn btn-primary" type="submit" on onClick={() => chooseRandomNumber()}>Submit answer</button>
+            </div>
+            {/* end of game */}
             <div className="flex justify-around">
                 <button className="btn btn-secondary w-1/3 hidden" id="add-highscore" onClick={() => sendHighscore()}>Save Highscore</button>
                 <Link className="btn btn-primary w-1/3 hidden" id="replay-btn" to={'/game/' + game._id}>Play Again</Link>
