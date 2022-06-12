@@ -36,7 +36,25 @@ function NumberGame(props) {
 
     useEffect (() => {
         const username = localStorage.getItem('username');
-    }, []);
+        const getGame = async () => {
+            const response = await fetch('/api/game/' + params.gameId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const gameData = await response.json();
+            setGame(gameData);
+            for (let i = 0; i < gameData.highscores.length; i++) {
+                if (gameData.highscores[i].username === username) {
+                    setHighscoreIndex(i);
+                    setHighscore(gameData.highscores[i].score);
+                    setHighscoreId(gameData.highscores[i]._id);
+                }
+            };
+        }
+        getGame();
+    });
 
     // create a function to display new number after submit is clicked
     // useEffect for event listners
