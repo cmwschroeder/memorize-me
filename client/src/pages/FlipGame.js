@@ -272,7 +272,7 @@ function FlipGame() {
 
                     </div>
                 </div>
-                <p className='btn btn-xs btn-link sm:btn-sm md:btn-md lg:btn-lg btn-circle sharkHov' onClick={() => easteregg.play()}><img src={shark} alt="Logo" /></p>
+                <p className='btn btn-xs btn-link sm:btn-sm md:btn-md lg:btn-lg btn-circle sharkHov' onClick={() => easteregg.play() && sound.stop()}><img src={shark} alt="Logo" /></p>
             </div >
         </div >
     );
