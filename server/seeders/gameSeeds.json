@@ -41,7 +41,7 @@
         "instructions": "Memorize the number and type in what you remeber once the time ends",
         "image": "sound-sequence.png",
         "preview": "sound-sequence.gif",
-        "link": "numbergame",
+        "link": "NumberSequence",
         "highscores": []
     }
 ]
