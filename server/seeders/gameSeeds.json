@@ -14,7 +14,16 @@
         "instructions": "Click on the cards to flip. Click once to show a card, the second click must be on the matching card to complete the set.",
         "image": "matching.png",
         "preview": "matching.gif",
-        "link": "games/game1",
+        "link": "matchingame",
+        "highscores": []
+    },
+    {
+        "title": "Farley Says",
+        "description": "Follow Farley commands, and remember an increasingly long pattern of card presses.",
+        "instructions": "Memorize the sequence of Cards that light up, then press them in order. Every time you finish the pattern, it gets longer.",
+        "image": "matching.png",
+        "preview": "matching.gif",
+        "link": "matchingame",
         "highscores": []
     }
 ]
