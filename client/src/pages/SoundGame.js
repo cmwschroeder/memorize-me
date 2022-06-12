@@ -74,6 +74,9 @@ function SoundGame() {
 
     const [game, setGame] = useState({});
 
+    const [answer, setAnswer] = useState([]);
+    const [currAnswerIndex, setCurrAnswerIndex] = useState(0);
+
     useEffect(() => {
         const username = localStorage.getItem('username');
         const getGame = async () => {
@@ -97,11 +100,8 @@ function SoundGame() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const makeSequence = (sequenceLength) => {
-        const sequence = [];
-        for (let i = 0; i < sequenceLength; i++) {
-            sequence.push(Math.floor(Math.random() * 6));
-        }
+    const addToSequence = (sequence) => {
+        sequence.push(Math.floor(Math.random() * 6));
         return sequence;
     }
 
@@ -126,25 +126,31 @@ function SoundGame() {
     //recursive function that will play one sound, wait 3 seconds, then send the sequence without the 
     //first element in the sequence
     const playSequence = async (sequence) => {
-        let sound, animalImage;
+        let sound, animalImage, soundTime;
         switch (sequence[0]) {
             case 0: sound = dogBarking;
                 animalImage = document.getElementById('dog-img');
+                soundTime = 2500;
                 break;
             case 1: sound = catMeowing;
                 animalImage = document.getElementById('cat-img');
+                soundTime = 1500;
                 break;
             case 2: sound = horseNeighing;
                 animalImage = document.getElementById('horse-img');
+                soundTime = 2500;
                 break;
             case 3: sound = cowMooing;
                 animalImage = document.getElementById('cow-img');
+                soundTime = 2500;
                 break;
             case 4: sound = duckQuacking;
                 animalImage = document.getElementById('duck-img');
+                soundTime = 2500;
                 break;
             default: sound = owlHooing;
                 animalImage = document.getElementById('owl-img');
+                soundTime = 2500;
                 break;
         }
         sound.play();
@@ -159,31 +165,76 @@ function SoundGame() {
                 else {
                     enableButtons();
                 }
-            }, 500);
-        }, 2500);
+            }, 250);
+        }, soundTime);
+    }
+
+    const checkAnswer = (number) => {
+        //got the answer correct for now
+        console.log(answer + "   " + number);
+        if (answer[currAnswerIndex] === number) {
+            //we have answered the entire sequence correctly, increment score and get new sequence and play it.
+            if ((answer.length - 1) === currAnswerIndex) {
+                disableButtons();
+                setScore(score + 1);
+                correctSound.play();
+                //set timeout to let correct sound play
+                setTimeout(() => {
+                    correctSound.stop();
+                    //reset the current guesses, add a sound to the sequence of sounds, play the new sequence
+                    setCurrAnswerIndex(0);
+                    const currSequence = addToSequence([...answer]);
+                    setAnswer([...currSequence]);
+                    playSequence(currSequence);
+                }, 1000)
+            }
+            //we haven't answered the entire sequence yet, increment currAnswerIndex
+            else {
+                setCurrAnswerIndex(currAnswerIndex + 1);
+            }
+        }
+        //incorrect answer, game over
+        else {
+            //play game over sound
+            incorrectSound.play();
+            //hide game
+            document.getElementById('game-images').classList.add('hidden');
+            //show end game screen
+            document.getElementById('game-over').classList.remove('hidden');
+            document.getElementById('end-score').classList.remove('hidden');
+            document.getElementById('curr-highscore').classList.remove('hidden');
+            document.getElementById('replay-btn').classList.remove('hidden');
+            document.getElementById('add-highscore').classList.remove('hidden');
+        }
     }
 
     const playSound = (number) => {
         disableButtons();
-        let sound, animalImage;
+        let sound, animalImage, soundTime;
         switch (number) {
             case 0: sound = dogBarking;
                 animalImage = document.getElementById('dog-img');
+                soundTime = 2500;
                 break;
             case 1: sound = catMeowing;
                 animalImage = document.getElementById('cat-img');
+                soundTime = 1300;
                 break;
             case 2: sound = horseNeighing;
                 animalImage = document.getElementById('horse-img');
+                soundTime = 2500;
                 break;
             case 3: sound = cowMooing;
                 animalImage = document.getElementById('cow-img');
+                soundTime = 2500;
                 break;
             case 4: sound = duckQuacking;
                 animalImage = document.getElementById('duck-img');
+                soundTime = 2500;
                 break;
             default: sound = owlHooing;
                 animalImage = document.getElementById('owl-img');
+                soundTime = 2500;
                 break;
         }
         sound.play();
@@ -191,19 +242,18 @@ function SoundGame() {
         setTimeout(() => {
             animalImage.classList.add('opacity-40');
             enableButtons();
-        }, 2500);
+            checkAnswer(number);
+        }, soundTime);
     }
 
     const startGame = () => {
-        disableButtons();
-        const currSequence = makeSequence(10);
+        document.getElementById('start-button').classList.add('hidden');
+        const currSequence = addToSequence([]);
+        setAnswer([...currSequence]);
+        setCurrAnswerIndex(0);
         playSequence(currSequence);
     }
 
-    const checkAnswer = () => {
-        const currScore = score + 1;
-        setScore(score + 1);
-    }
 
     const sendHighscore = () => {
         if (highscoreIndex === -1) {
@@ -225,46 +275,46 @@ function SoundGame() {
                             <h2 className="card-title text-4xl">Score: {score}</h2>
                         </div>
                         <div className="flex justify-center">
-                            <button className="btn btn-secondary w-1/4" onClick={() => startGame()}>Start</button>
+                            <button className="btn btn-secondary w-1/4" onClick={() => startGame()} id='start-button'>Start</button>
                         </div>
                         <p className="text-3xl text-secondary my-20 hidden" id="game-over">Game Over</p>
                         <p className="text-3xl text-secondary mb-10 hidden" id="end-score">Your score was: {score}</p>
-                        <p className="text-3xl text-secondary mb-10 hidden" id="curr-highscore">Your current highscore is: {highscore} &#127942;</p>
-                        <div className="flex flex-row flex-wrap justify-around">
+                        <p className="text-3xl text-secondary mb-10 hidden" id="curr-highscore">Your current highscore is: {highscore}</p>
+                        <div className="flex flex-row flex-wrap justify-around" id="game-images">
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
                                 <figure className="h-56 opacity-40" id="dog-img"><img src={dogImage} alt="Dog" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(0)} id="dog-btn">Dog Sound</button>
+                                    <button className="btn btn-primary w-full mt-3 btn-disabled" onClick={() => playSound(0)} id="dog-btn">Dog Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
                                 <figure className="h-56 opacity-40" id="cat-img"><img src={catImage} alt="Cat" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(1)} id="cat-btn">Cat Sound</button>
+                                    <button className="btn btn-primary w-full mt-3 btn-disabled" onClick={() => playSound(1)} id="cat-btn">Cat Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
                                 <figure className="h-56 opacity-40" id="horse-img"><img className="w-fit" src={horseImage} alt="Horse" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(2)} id="horse-btn">Horse Sound</button>
+                                    <button className="btn btn-primary w-full mt-3 btn-disabled" onClick={() => playSound(2)} id="horse-btn">Horse Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
                                 <figure className="h-56 opacity-40" id="cow-img"><img src={cowImage} alt="Cow" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(3)} id="cow-btn">Cow Sound</button>
+                                    <button className="btn btn-primary w-full mt-3 btn-disabled" onClick={() => playSound(3)} id="cow-btn">Cow Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
                                 <figure className="h-56 opacity-40" id="duck-img"><img src={duckImage} alt="Duck" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(4)} id="duck-btn">Duck Sound</button>
+                                    <button className="btn btn-primary w-full mt-3 btn-disabled" onClick={() => playSound(4)} id="duck-btn">Duck Sound</button>
                                 </div>
                             </div>
                             <div className="card w-56 lg:w-96 bg-base-100 shadow-xl mt-3">
                                 <figure className="h-56 opacity-40" id="owl-img"><img src={owlImage} alt="Owl" /></figure>
                                 <div className="card-body">
-                                    <button className="btn btn-primary w-full mt-3" onClick={() => playSound(5)} id="owl-btn">Owl Sound</button>
+                                    <button className="btn btn-primary w-full mt-3 btn-disabled" onClick={() => playSound(5)} id="owl-btn">Owl Sound</button>
                                 </div>
                             </div>
 
