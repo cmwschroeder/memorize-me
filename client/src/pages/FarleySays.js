@@ -213,6 +213,63 @@ function FarleySays() {
 
     return (
 
+        <div>
+            <h1 className="text-5xl font-bold flex justify-center m-6 myscores">Farley Says</h1>
+            <div className='app'>
+                <div className='grid place-items-center matchcards'>
+                    {/* If there is a Game Over execute this... */}
+                    {isOn && !play.isDisplay && !play.userPlay && play.score && (
+                        <div className=" w-11/12 card lg:card-side bg-base-100 shadow-xl">
+                            <div class="card-body items-center text-center">
+                                <p className='text-3xl text-secondary p-9'>Score: <span className="text-primary">{play.score}</span></p>
+                                <div className=" card-actions p-9 flex justify-around">
+                                    <Link to={'/game/' + game._id}> <button className="btn btn-secondary buttonHov" id="old-btn">Play Again!</button></Link>
+                                    <button className="btn btn-primary buttonHov" id="new-btn" onClick={() => sendHighscore()}>Save Score</button>
+                                </div>
+                                <p className='text-1xl text-secondary p-9'>Your current highscore is: <span className="text-primary">{highscore} &#127942;</span></p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <div className="modal modal-bottom sm:modal-middle" id="save">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-3xl text-secondary">Save</h3>
+                        <p className="py-4" id="error-text">Highscore saved, your new highscore is: {play.score}</p>
+                        <div className="modal-action">
+                            <Link className="btn btn-accent w-1/3" to={'/game/' + game._id}>Close</Link>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div className="content-center">
+                        {/* If the game is NOT ON, display the START button to display the game when click */}
+                        {!isOn && !play.score && (
+                            <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg" onClick={startHandle} >Start</button>
+                        )}
+                        {/* If the game is ON, display the score of the user  */}
+                        {isOn && (play.isDisplay || play.userPlay) && (
+                            <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"> Score : {play.score}</button>
+                        )}
+                    </div>
+                    <div>
+                        <div className='grid grid-cols-3 gap-1 card bg-base-100 w-3/7 shadow-xl my-6 p-3 shadow-xl '>
+                            {
+                                colorList &&
+                                colorList.map((cards, index) => (
+                                    <FarleyCard key={index}
+                                        onClick={() => {
+                                            cardClickHandle(cards);
+                                        }}
+                                        // if the flash color is equal to cards, then Flash it 
+                                        flash={flashColor === cards}
+                                        cards={cards}
+                                    ></FarleyCard>
+                                ))}
+                        </div>
+                    </div>
+                </div>
+            </div >
+        </div >
     );
 }
 
