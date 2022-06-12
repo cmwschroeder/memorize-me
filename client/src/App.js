@@ -7,6 +7,7 @@ import FlipGame from './pages/FlipGame';
 import Login from './pages/Login';
 import OldOrNew from './pages/OldOrNew';
 import FarleySays from './pages/FarleySays';
+import SoundGame from './pages/SoundGame';
 
 import Profile from './pages/Profile'
 import GamePage from './pages/GamePage';
@@ -26,6 +27,7 @@ function App() {
           <Route exact path='/game/oldornew/:gameId' component={OldOrNew} />
           <Route exact path='/game/matchcards/:gameId' component={FlipGame} />
           <Route exact path='/game/farleysays/:gameId' component={FarleySays} />
+          <Route exact path='/game/soundsequence/:gameId' component={SoundGame} />
         </Switch>
       </>
     </Router>
