@@ -244,7 +244,7 @@ function FlipGame() {
                         <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-red-600 rounded-lg px-3 py-2 text-red-400 cursor-pointer hover:bg-red-600 hover:text-red-200" >Missed: {clicks}</button>
                         <button className=" btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-green-600 rounded-lg px-3 py-2 text-green-400 cursor-pointer hover:bg-green-600 hover:text-green-200">Matched: {match - 1} / 9</button>
                         <p className=" btn btn-wide sm:btn-xs md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-purple-600 rounded-lg text-purple-400 cursor-pointer hover:bg-purple-600 hover:text-purple-200" >Time: <span onClick={() => sound.play()}>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span><span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span><span>{("0" + ((time / 10) % 100)).slice(-2)}</span></p>
-                        <Link to={'/game/' + game._id}><button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200'>Reset</button></Link>
+                        <Link to={'/game/' + game._id}><button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-link border-2 mx-2.5 border-yellow-600 rounded-lg px-3 py-2 text-yellow-400 cursor-pointer hover:bg-yellow-600 hover:text-yellow-200' onClick={() => sound.stop()}>Reset</button></Link>
                         {timerOn && (
                             <p className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-circle mx-2.5' onClick={() => sound.pause()}>&#9654;</p>
                         )}
