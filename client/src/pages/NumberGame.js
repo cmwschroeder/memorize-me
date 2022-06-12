@@ -55,9 +55,17 @@ function NumberGame(props) {
         }
         getGame();
     });
-
+    // create a fucniton to send scores
+    const sendHighscore = () => {
+        if (highscoreIndex === -1) {
+            addHighscore(game.title, score);
+            document.getElementById('save').classList.add('modal-open');
+        } else {
+            updateHighscore(highscoreId, score);
+            document.getElementById('save').classList.add('modal-open');
+        }
+    }
     // create a function to display new number after submit is clicked
-    // useEffect for event listners
     return (
         <div>
             <h7>Submit your answer</h7>
