@@ -1,21 +1,21 @@
 // import react for use context.
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 // import app context
 // }
 //  redo code
 // create a function that ranomdizes numbers to be displayed
- function NumberGame(props) {
-    const [randomNumber , setRandomNumber] = useState("");
+function NumberGame(props) {
+    const [randomNumber, setRandomNumber] = useState("");
     const chooseRandomNumber = (numberLength) => {
         let number = '';
-        for (let i = 0; i < numberLength; i ++){
-            number = number + (Math.floor(Math.random()* 10)).toString();
+        for (let i = 0; i < numberLength; i++) {
+            number = number + (Math.floor(Math.random() * 10)).toString();
         }
         setRandomNumber(number);
         return number;
     }
     // create a function to check answers
-    const [score , totScore] = useState(0);
+    const [score, totScore] = useState(0);
     const answer = (number) => {
         if (number === randomNumber) {
             totScore(score + 1);
@@ -32,14 +32,28 @@ import React, {useEffect, useState} from "react";
     // useEffect for event listners
     return (
         <div>
-            <h7>Submit your answer</h7> 
+            <h7>Submit your answer</h7>
             <form>
                 <p className="random">{randomNumber}</p>
                 <textarea className="answer" placeholder="type answer here"></textarea>
-                <button className="btn" type="submit" on onClick={()=> chooseRandomNumber()}>Submit answer</button>
+                <button className="btn" type="submit" on onClick={() => chooseRandomNumber()}>Submit answer</button>
             </form>
+
+            <div className="flex justify-around">
+                <button className="btn btn-secondary w-1/3 hidden" id="add-highscore" onClick={() => sendHighscore()}>Save Highscore</button>
+                <Link className="btn btn-primary w-1/3 hidden" id="replay-btn" to={'/game/' + game._id}>Play Again</Link>
+            </div>
+            <div className="modal modal-bottom sm:modal-middle" id="save">
+                <div className="modal-box">
+                    <h3 className="font-bold text-3xl text-secondary">Save</h3>
+                    <p className="py-4" id="error-text">Highscore saved, your new highscore is: {score}</p>
+                    <div className="modal-action">
+                        <Link className="btn btn-accent w-1/3" to={'/game/' + game._id}>Close</Link>
+                    </div>
+                </div>
+            </div>
         </div>
-       
+
     );
 
 }
@@ -55,4 +69,3 @@ export default NumberGame;
     // create button to save highscore and it will go to high score page
     // create a play again button
 
-    
