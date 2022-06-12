@@ -1,8 +1,7 @@
 // import react for use context.
 import React, { useEffect, useState } from "react";
-// import app context
-// }
-//  redo code
+import { useParams, Link } from "react-router-dom";
+import {addHighscore, updateHighscore} from '../utils/Helpers';
 // create a function that ranomdizes numbers to be displayed
 function NumberGame(props) {
     const [randomNumber, setRandomNumber] = useState("");
@@ -28,6 +27,17 @@ function NumberGame(props) {
             // hide all buttons
         }
     }
+  // create fucntion to tie to games route to send scores
+    const [highscore, setHighscore] =useState(0);
+    const [highscoreIndex, setHighscoreIndex] = useState(0);
+    const [highscoreId, setHighscoreId] = useState(0);
+    const [game, setGame] = useState({});
+    const params = useParams();
+
+    useEffect (() => {
+        const username = localStorage.getItem('username');
+    }, []);
+
     // create a function to display new number after submit is clicked
     // useEffect for event listners
     return (
