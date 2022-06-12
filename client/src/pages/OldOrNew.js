@@ -131,10 +131,10 @@ function OldOrNew() {
                             <h2 className="card-title text-4xl text-primary">Old Or New:</h2>
                             <h2 className="card-title text-4xl">Score: {score}</h2>
                         </div>
-                        <p className="text-3xl text-secondary my-20" id="currWord">{score + 1}: {currWord}</p>
-                        <p className="text-3xl text-secondary my-20 hidden" id="game-over">Game Over</p>
-                        <p className="text-3xl text-secondary mb-10 hidden" id="end-score">Your score was: {score}</p>
-                        <p className="text-3xl text-secondary mb-10 hidden" id="curr-highscore">Your current highscore is: {highscore} &#127942;</p>
+                        <p className="text-3xl text-info my-20" id="currWord">{score + 1}: {currWord}</p>
+                        <p className="text-3xl text-accent my-20 hidden" id="game-over">Game Over</p>
+                        <p className="text-3xl text-accent mb-10 hidden" id="end-score">Your score was: {score}</p>
+                        <p className="text-3xl text-accent mb-10 hidden" id="curr-highscore">Your current highscore is: {highscore} &#127942;</p>
                         <div className="flex justify-around">
                             <button className="btn btn-secondary w-1/3" onClick={() => checkAnswer(false)} id="old-btn">Old</button>
                             <button className="btn btn-primary w-1/3" onClick={() => checkAnswer(true)} id="new-btn">New</button>

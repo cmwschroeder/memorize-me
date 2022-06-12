@@ -48,8 +48,8 @@ function Home() {
                                 <div className="card w-96 glass shadow-xl w-1/3 m-5 gamecards">
                                     <figure className="h-96"><img src={"./preview-images/" + game.image} alt="Game Preview" /></figure>
                                     <div className="card-body w-full">
-                                        <h2 className="card-title">{game.title}</h2>
-                                        <p>{game.description}</p>
+                                        <h2 className="card-title text-error">{game.title}</h2>
+                                        <p className='text-accent'>{game.description}</p>
                                         <div className="card-actions justify-end">
                                             {!Auth.loggedIn()
                                                 ? (<Link to='/login' className="btn btn-primary w-1/2" >Play</Link>)
