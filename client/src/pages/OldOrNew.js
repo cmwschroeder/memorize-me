@@ -31,7 +31,18 @@ function OldOrNew() {
 
     const params = useParams();
 
-    const [unusedWords, setUnusedWords] = useState(['Hello', 'Goodbye', 'Computer', 'Programming', 'Javascript', 'Style', 'Sheet', 'Cool', 'Easy', 'Game', 'New', 'Old', 'List', 'Make', 'More', 'Later']);
+    const [unusedWords, setUnusedWords] = useState(['Hello', 'Goodbye', 'Computer', 'Programming', 'Javascript', 'Style', 'Sheet', 'Cool', 'Easy', 'Game', 'New',
+        'Old', 'List', 'Make', 'More', 'Later', 'Number', 'Letter', 'Sequelize', 'Tree', 'Chicken', 'Donut', 'Binary', 'Dog', 'Cat', 'Search', 'Array', 'Logarithm',
+        'Linear', 'Parabola', 'Constant', 'Aligator', 'Crocodile', 'Elephant', 'Telephone', 'Medal', 'Gem', 'Battle', 'Xylophone', 'Guitar', 'Color', 'Cascading',
+        'Dragon', 'Pegasus', 'Minotaur', 'Piano', 'Diagonal', 'Across', 'According', 'Action', 'Admnistration', 'Adult', 'Agreement', 'Become', 'Below', 'Margin',
+        'Background', 'Brother', 'Sister', 'Business', 'Camera', 'Candidate', 'Career', 'Challenge', 'Coding', 'Collection', 'Continue', 'Describe', 'Daughter',
+        'Development', 'Difference', 'Direction', 'Economic', 'Education', 'Environment', 'Everybody', 'Experience', 'Father', 'Mother', 'Financial', 'Focus',
+        'Generation', 'Glass', 'Government', 'Happen', 'Hospital', 'However', 'Imagine', 'Important', 'Individual', 'Information', 'Interesting', 'Knowledge',
+        'Language', 'Leader', 'Leave', 'Listen', 'Machine', 'Magazine', 'Management', 'Measure', 'Memory', 'Minute', 'Movement', 'Necessary', 'Nothing', 'Notice',
+        'Occur', 'Operation', 'Opportunity', 'Organization', 'Outside', 'Participant', 'Progress', 'Performance', 'Physical', 'Population', 'Pressure', 'Production',
+        'Quality', 'Question', 'Quickly', 'Rather', 'Recognize', 'Record', 'Relationship', 'Responsibility', 'Reveal', 'Science', 'Security', 'Service', 'Source',
+        'Significant', 'Similar', 'Situation', 'Sometimes', 'Southern', 'Statement', 'Successful', 'Technology', 'Throughout', 'Together', 'Tonight', 'Traditional',
+        'Understand', 'Until', 'Various', 'Voice', 'Weight', 'Western', 'Whatever', 'Window', 'Weather', 'Wheat', 'Year', 'Young', 'Yourself', 'Zebra']);
     const [usedWords, setUsedWords] = useState([]);
 
     useEffect(() => {
@@ -95,6 +106,15 @@ function OldOrNew() {
             }
             else {
                 //ran out of words do something i guess idk we will figure it out later
+                document.getElementById('currWord').classList.add('hidden');
+                document.getElementById('old-btn').classList.add('hidden');
+                document.getElementById('new-btn').classList.add('hidden');
+                document.getElementById('game-over').classList.remove('hidden');
+                document.getElementById('game-over').textContent = 'Ran out of words, Game Over'
+                document.getElementById('end-score').classList.remove('hidden');
+                document.getElementById('curr-highscore').classList.remove('hidden');
+                document.getElementById('replay-btn').classList.remove('hidden');
+                document.getElementById('add-highscore').classList.remove('hidden');
             }
         }
         else {
@@ -124,12 +144,12 @@ function OldOrNew() {
 
     return (
         <div className="bg-base-200 min-h-screen">
-            <div id="login" className="w-full flex justify-center">
+            <div id="old-or-new-game" className="w-full flex justify-center">
                 <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                     <div className="card-body text-center">
-                        <div className="flex justify-between">
+                        <div className="flex flex-col sm:flex-row justify-between">
                             <h2 className="card-title text-4xl text-primary">Old Or New:</h2>
-                            <h2 className="card-title text-4xl">Score: {score}</h2>
+                            <h2 className="card-title text-4xl mt-4 sm:mt-0">Score: {score}</h2>
                         </div>
                         <p className="text-3xl text-info my-20" id="currWord">{score + 1}: {currWord}</p>
                         <p className="text-3xl text-accent my-20 hidden" id="game-over">Game Over</p>
