@@ -18,12 +18,6 @@ const Card = ({ name, number, frontFace, flipCard, unflippedCards, disabledCards
         }
     }, [unflippedCards])
 
-    // useEffect(() => {
-    //     if (isFlipped.includes(number)) {
-    //         setTimeout(() => setIsFlipped(false), 700);
-    //     }
-    // }, [setIsFlipped])
-
     //  Execute the disableCards and return setHasEvent(false) to prevent the card for flipping again when matched. 
     useEffect(() => {
         if (disabledCards.includes(number)) {

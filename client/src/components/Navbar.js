@@ -1,40 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 import Auth from '../utils/Auth';
 
+import logo from '../images/logo.png'
 function NavBar() {
+
     return (
-        <div className="navbar bg-base-100">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <label tabIndex="0" className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-                        </svg>
-                    </label>
-                    <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        {!Auth.loggedIn() 
-                            ? (<li><Link to="/login" className="text-error">Profile</Link></li>)
-                            : (<li><Link to="/profile" className="text-error">Profile</Link></li>)}
-                        {!Auth.loggedIn() 
-                            ? (<li><Link to="/login" className="text-primary">Login</Link></li>)
-                            : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}
-                    </ul>
+        <nav className="w-full border-b">
+            <div className="py-5 md:py-0 container mx-auto px-6 flex items-center justify-between">
+                <div aria-label="Home. logo" role="img">
+                    <Link to='/'><img className="w-24 md:w-28" src={logo} alt="logo" /></Link>
                 </div>
-                <Link to="/" className="btn btn-ghost normal-case text-xl text-accent">Home</Link>
+                <div>
+                    <div>
+                        <ul className="md:text-base items-center py-10 md:flex  justify-center md:relative top-0 bottom-0 left-0 right-0">
+                            <li className="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0">
+                                <Link className='neontext2 navbartext' to="/">Home</Link>
+                            </li>
+                            <li className="cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
+                                {!Auth.loggedIn()
+                                    ? < Link className='navbartext neontext2' to="/login" >Profile</Link>
+                                    : < Link className='navbartext neontext2' to="/profile/me">Profile</Link>}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {!Auth.loggedIn()
+                    ? <Link to="/login" className="btn btn-accent text-lg neon-text3 gamecards">Login</Link>
+                    : <Link to="/login" className="btn btn-accent text-lg neon-text3 gamecards" onClick={() => Auth.logout()}>Logout</Link>}
+
             </div>
-            <div className="navbar-end hidden lg:flex">
-                <ul className="menu menu-horizontal p-0">
-                {!Auth.loggedIn() 
-                            ? (<li><Link to="/login" className="text-error">Profile</Link></li>)
-                            : (<li><Link to="/profile/me" className="text-error">Profile</Link></li>)}
-                    {!Auth.loggedIn() 
-                            ? (<li><Link to="/login" className="text-primary">Login</Link></li>)
-                            : (<li><button className="text-primary btn-ghost" onClick={() => Auth.logout()}>Logout</button></li>)}
-                </ul>
-            </div>
-        </div>
+        </nav >
     );
 }
 
