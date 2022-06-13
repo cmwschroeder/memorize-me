@@ -25,7 +25,7 @@ function GamePage() {
         let i = 1;
         return sortedHighscores.map((highscore) => {
             return (
-                <tr class="hover">
+                <tr className="hover" key={highscore._id}>
                     <th>{i++}</th>
                     <td className='userTitle'>{highscore.username}</td>
                     <td>{highscore.score}</td>
@@ -39,7 +39,6 @@ function GamePage() {
     const renderHighscores = () => {
         if (game.highscores.length !== 0) {
             const sortedHighscores = sortHighscores(game.highscores);
-            console.log(sortedHighscores);
             return (
                 <div className="w-full flex justify-center">
                     <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3">
