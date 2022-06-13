@@ -43,21 +43,6 @@ function Profile() {
         getUserData();
     }, [userDataLength]);
 
-    // useEffect(() => {
-    //     const getGames = async () => {
-    //         const response = await fetch('/api/game', {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         });
-    //         const gameList = await response.json();
-    //         setGames(gameList);
-    //     };
-    //     getGames();
-    //   
-    // }, []);
-    // console.log(games)
 
     const handleDeleteScore = async (_id) => {
         fetch(`/api/scores/${_id}`, {
@@ -77,8 +62,8 @@ function Profile() {
     let i = 1;
     return (
         <div>
-            <h1 className="text-5xl font-bold flex justify-center m-5 myscores"> My Scores &#127942;</h1>
-            <h1 className="text-xl font-bold flex justify-center m-5 userTitle"><span>{userData.username}</span></h1>
+            <h1 className="text-5xl font-bold flex justify-center m-5 myscores"> <span className='neon-text'>My Scores </span>&#127942;</h1>
+            <h1 className="text-xl flex justify-center m-5 userTitle">{userData.username}</h1>
             <div className="w-full flex justify-center">
                 <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                     <thead>
@@ -99,8 +84,8 @@ function Profile() {
                                         <th>{i++}</th>
                                         <td>{userScore.game}</td>
                                         <td>{userScore.score}</td>
-                                        <td><button className="btn btn-error gamecards" onClick={() => handleDeleteScore(userScore._id) && deletesound.play()}>Delete</button></td>
-                                        <td><Link className="btn btn-glass gamecards" to={'/'}>Play</Link></td>
+                                        <td><button className="btn btn-error buttonHov" onClick={() => handleDeleteScore(userScore._id) && deletesound.play()}>Delete</button></td>
+                                        <td><Link className="btn btn-glass buttonHov" to={'/'}>Play</Link></td>
                                     </tr>
                                 );
                             })}

@@ -25,7 +25,7 @@ function GamePage() {
         let i = 1;
         return sortedHighscores.map((highscore) => {
             return (
-                <tr class="hover">
+                <tr className="hover" key={highscore._id}>
                     <th>{i++}</th>
                     <td className='userTitle'>{highscore.username}</td>
                     <td>{highscore.score}</td>
@@ -39,10 +39,9 @@ function GamePage() {
     const renderHighscores = () => {
         if (game.highscores.length !== 0) {
             const sortedHighscores = sortHighscores(game.highscores);
-            console.log(sortedHighscores);
             return (
                 <div className="w-full flex justify-center">
-                    <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3">
+                    <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3 ">
                         <thead>
                             <tr>
                                 <th></th>
@@ -74,23 +73,23 @@ function GamePage() {
             <div className="min-h-screen w-full bg-base-200">
                 <div className="w-full flex flex-row flex-wrap justify-center">
                     <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
-                        <div className="flex flex-row justify-around">
-                            <div className="w-6/12">
+                        <div className="flex flex-col lg:flex-row justify-around">
+                            <div className="w-full lg:w-6/12">
                                 <img src={'/preview-gifs/' + game.preview} alt="Game Preview"></img>
                             </div>
-                            <div className="w-6/12">
+                            <div className="w-full lg:w-6/12">
                                 <h1 className="text-4xl text-accent my-10">{game.title}</h1>
                                 <p className="text-xl">{game.description}</p>
                                 <h2 className="text-2xl my-5 text-secondary">How to play: </h2>
                                 <p className="text-xl">{game.instructions}</p>
                                 <div className="w-full flex justify-center my-10">
-                                    <Link to={"/game/" + game.title.replace(/\s/g, '') + '/' + game._id} className="btn btn-primary w-1/2">Play</Link>
+                                    <Link to={"/game/" + game.link + '/' + game._id} className="btn btn-primary w-1/2">Play</Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
-                        <h3 className="text-4xl text-primary my-3">Highscores:</h3>
+                        <h3 className="text-4xl text-primary my-3 neon-text3">Highscores:</h3>
                         {renderHighscores()}
                     </div>
                 </div>

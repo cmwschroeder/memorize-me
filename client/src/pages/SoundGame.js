@@ -171,7 +171,6 @@ function SoundGame() {
 
     const checkAnswer = (number) => {
         //got the answer correct for now
-        console.log(answer + "   " + number);
         if (answer[currAnswerIndex] === number) {
             //we have answered the entire sequence correctly, increment score and get new sequence and play it.
             if ((answer.length - 1) === currAnswerIndex) {
@@ -270,9 +269,9 @@ function SoundGame() {
             <div id="login" className="w-full flex justify-center">
                 <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                     <div className="card-body text-center">
-                        <div className="flex justify-between">
+                        <div className="flex flex-col sm:flex-row justify-between">
                             <h2 className="card-title text-4xl text-primary">Sound Sequence:</h2>
-                            <h2 className="card-title text-4xl">Score: {score}</h2>
+                            <h2 className="card-title text-4xl mt-4 sm:mt-0">Score: {score}</h2>
                         </div>
                         <div className="flex justify-center">
                             <button className="btn btn-secondary w-1/4" onClick={() => startGame()} id='start-button'>Start</button>
