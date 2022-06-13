@@ -136,7 +136,7 @@ function CreateAccountForm({ switchForm }) {
     return (
         <div className="bg-base-200 min-h-screen">
             <div id="createAccount" className="w-full flex justify-center">
-                <div className="card w-1/3 bg-base-100 shadow-xl my-6 p-3">
+                <div className="card w-full md:w-2/3 lg:w-2/5 xl:w-1/3 bg-base-100 shadow-xl my-6 p-3">
                     <div className="card-body w-full">
                         <h2 className="card-title text-4xl text-primary">Create Account:</h2>
 

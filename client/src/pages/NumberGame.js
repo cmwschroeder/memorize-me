@@ -107,9 +107,9 @@ function NumberGame() {
             <div id="number-game" className="w-full flex justify-center">
                 <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
                     <div className="card-body text-center">
-                        <div className="flex justify-between">
+                        <div className="flex flex-col sm:flex-row justify-between">
                             <h2 className="card-title text-4xl text-primary">Number Sequence:</h2>
-                            <h2 className="card-title text-4xl">Score: {score}</h2>
+                            <h2 className="card-title text-4xl mt-4 sm:mt-0">Score: {score}</h2>
                         </div>
                         <div className="flex justify-center">
                             <button className="btn btn-accent w-1/4 mt-16" onClick={() => startGame()} id='start-button'>Start</button>
