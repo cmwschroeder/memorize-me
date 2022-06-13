@@ -7,8 +7,10 @@ Want to help grow your Hippocampus? Engage your Cerebrum? Try these games! Train
 ![Alt img](./client/public/preview-gifs/farleysays.gif)
 ![Alt img](./client/public/preview-gifs/matching.gif)
 ![Alt img](./client/public/preview-gifs/number-sequence.gif)
-## Installation
 
+## Installation
+npm install
+react
 ## Contributors
 Amnider Kaur (github: https://github.com/akaur09)
 Christian Schroeder (github: https://github.com/cmwschroeder)
