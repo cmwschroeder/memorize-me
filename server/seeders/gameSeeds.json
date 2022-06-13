@@ -14,7 +14,7 @@
         "instructions": "Click on the cards to flip. Click once to show a card, the second click must be on the matching card to complete the set.",
         "image": "matching.png",
         "preview": "matching.gif",
-        "link": "matchingame",
+        "link": "matchcards",
         "highscores": []
     },
     {
@@ -23,7 +23,7 @@
         "instructions": "Memorize the sequence of Cards that light up, then press them in order. Every time you finish the pattern, it gets longer.",
         "image": "farleysays.png",
         "preview": "farleysays.gif",
-        "link": "matchingame",
+        "link": "©farleysays",
         "highscores": []
     },
     {
@@ -39,8 +39,8 @@
         "title": "Number Sequence",
         "description": "Try to remember the number that is displayed",
         "instructions": "Memorize the number and type in what you remeber once the time ends",
-        "image": "sound-sequence.png",
-        "preview": "sound-sequence.gif",
+        "image": "number-sequence.png",
+        "preview": "number-sequence.gif",
         "link": "NumberSequence",
         "highscores": []
     }

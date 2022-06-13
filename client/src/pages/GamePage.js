@@ -83,7 +83,7 @@ function GamePage() {
                                 <h2 className="text-2xl my-5 text-secondary">How to play: </h2>
                                 <p className="text-xl">{game.instructions}</p>
                                 <div className="w-full flex justify-center my-10">
-                                    <Link to={"/game/" + game.title.replace(/\s/g, '') + '/' + game._id} className="btn btn-primary w-1/2">Play</Link>
+                                    <Link to={"/game/" + game.link + '/' + game._id} className="btn btn-primary w-1/2">Play</Link>
                                 </div>
                             </div>
                         </div>
