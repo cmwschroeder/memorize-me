@@ -35,7 +35,7 @@ function FarleySays() {
     const [isOn, setIsOn] = useState(false);
 
     //Array that populates the cards on the game. 
-    const colorList = ["card1", "card2", "card3", "card4", "card5", "card6", "card7", "card8", "card9",];
+    const cardList = ["card1", "card2", "card3", "card4", "card5", "card6", "card7", "card8", "card9", "car10", "card11", "card12"];
 
     //  If the game is ON, we want to display this keys, Else If the game is OFF do not display this keys. 
     const initPlay = {
@@ -73,7 +73,7 @@ function FarleySays() {
     useEffect(() => {
         if (isOn && play.isDisplay) {
             // Creates a number between 0-9 that picks One position of my Array of Cards, and states it as Initial Position. 
-            let newCard = colorList[Math.floor(Math.random() * 9)];
+            let newCard = cardList[Math.floor(Math.random() * 9)];
             // Copies the existing card picked, and adds it to the new Cards
             const copyCards = [...play.cards];
             copyCards.push(newCard);
@@ -105,7 +105,7 @@ function FarleySays() {
         // For each Card.. 
         for (let i = 0; i < play.cards.length; i++) {
             // When the card is selected, flash it (add the class that styles it). 
-            setFlashColor(play.cards[i]);
+            setFlashColor(play.cards[i])
             await timeout(300);
             // After the Card is selected, unflash it (remove the class that styles it). 
             setFlashColor("");
@@ -214,7 +214,7 @@ function FarleySays() {
     return (
 
         <div>
-            <h1 className="text-5xl font-bold flex justify-center m-6 myscores">Farley Says</h1>
+            <h1 className="text-5xl font-bold flex justify-center m-6">Farley Says</h1>
             <div className='app'>
                 <div className='grid place-items-center matchcards'>
                     {/* If there is a Game Over execute this... */}
@@ -252,10 +252,9 @@ function FarleySays() {
                         )}
                     </div>
                     <div>
-                        <div className='grid grid-cols-3 gap-1 card bg-base-100 w-3/7 shadow-xl my-6 p-3 shadow-xl '>
+                        <div className='grid grid-cols-4 gap-1 card bg-base-100 w-3/7 shadow-xl my-6 p-3 shadow-xl '>
                             {
-                                colorList &&
-                                colorList.map((cards, index) => (
+                                cardList.map((cards, index) => (
                                     <FarleyCard key={index}
                                         onClick={() => {
                                             cardClickHandle(cards);
