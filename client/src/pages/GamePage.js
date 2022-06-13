@@ -41,7 +41,7 @@ function GamePage() {
             const sortedHighscores = sortHighscores(game.highscores);
             return (
                 <div className="w-full flex justify-center">
-                    <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3">
+                    <table className="table table-zebra card w-5/6 bg-base-100 shadow-xl my-6 p-3 ">
                         <thead>
                             <tr>
                                 <th></th>
@@ -89,7 +89,7 @@ function GamePage() {
                         </div>
                     </div>
                     <div className="card w-5/6 bg-base-100 shadow-xl my-6 p-3">
-                        <h3 className="text-4xl text-primary my-3">Highscores:</h3>
+                        <h3 className="text-4xl text-primary my-3 neon-text3">Highscores:</h3>
                         {renderHighscores()}
                     </div>
                 </div>

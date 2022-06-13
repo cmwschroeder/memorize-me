@@ -212,7 +212,7 @@ function FlipGame() {
     }
     return (
         <div>
-            <h1 className="text-5xl font-bold flex justify-center m-6 myscores">Match Cards</h1>
+            <h1 className="text-5xl font-bold flex justify-center m-6">Match Cards</h1>
             <div className='app'>
                 <div className='grid place-items-center matchcards'>
                     {/* If the user finishes the game, execute this... */}
