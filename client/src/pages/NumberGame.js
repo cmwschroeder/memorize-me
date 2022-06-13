@@ -115,14 +115,14 @@ function NumberGame() {
                             <button className="btn btn-accent w-1/4 mt-16" onClick={() => startGame()} id='start-button'>Start</button>
                         </div>
                         {/* game */}
-                        <h6 className="text-primary text-2xl hidden mt-10" id="submit-text">Submit your answer</h6>
+                        <h6 className="text-secondary text-2xl hidden mt-10" id="submit-text">Submit your answer</h6>
                         <h6 className="text-primary text-2xl hidden" id="game-over">Game Over</h6>
                         <h6 className="text-primary text-2xl hidden" id="end-score">Your score was: {score}</h6>
                         <h6 className="text-primary text-2xl hidden" id="curr-highscore">Your highscore is: {highscore}</h6>
                         <p className="random text-3xl text-accent hidden mt-16" id='random-number-text'>{randomNumber}</p>
-                        <input type="text" placeholder="Type answer here" class="input input-bordered input-primary w-1/3 mx-auto hidden mt-10" id='answer-input'/>
+                        <input type="text" placeholder="Type answer here" class="input input-bordered input-accent w-1/3 mx-auto hidden mt-10" id='answer-input'/>
                         <div className="flex justify-center">
-                            <button className="btn btn-primary w-1/3 hidden" type="submit" onClick={() => answer()} id='submit-button'>Submit answer</button>
+                            <button className="btn btn-neutral w-1/3 hidden mt-5" type="submit" onClick={() => answer()} id='submit-button'>Submit answer</button>
                         </div>
                         {/* end of game */}
                         <div className="flex justify-around">
